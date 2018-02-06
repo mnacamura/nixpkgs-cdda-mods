@@ -31,8 +31,8 @@
     installPhase = args.installPhase or ''
       runHook preInstall
       dest=$out/share/cataclysm-dda/mods/${modName}
-      for file in $(find $src -type f); do
-          install -D -m 444 $file -T $(echo $file | sed -e "s,$src,$dest,")
+      for file in $(find . -type f -not -name '*.nix'); do
+          install -D -m 444 $file -T $(echo $file | sed "s,.,$dest,")
       done
       runHook postInstall
     '';

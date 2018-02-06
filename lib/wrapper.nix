@@ -1,11 +1,10 @@
 { stdenv, lib, symlinkJoin, makeWrapper }:
 
-cdda:
+bareCDDA:
 
 let
-  parsedName = builtins.parseDrvName cdda.name;
-
-  wrapper = { mods }:
+  wrapper = { mods, ... } @ args:
+  let cdda = bareCDDA.override (builtins.removeAttrs args [ "mods" ]); in
   if builtins.length mods == 0 then cdda
   else symlinkJoin {
     name = "${cdda.name}-with-mods";
