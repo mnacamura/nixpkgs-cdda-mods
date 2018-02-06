@@ -1,0 +1,20 @@
+#! /usr/bin/env nix-shell
+#! nix-shell -i fish -p fish findutils gnused nodePackages.json-diff
+
+set -l src (echo $argv[1] | sed 's,/$,,')
+set -l dst (echo $argv[2] | sed 's,/$,,')
+
+set -l relpath
+if [ -d $src -a -d $dst ]
+  for file in (find $src -type f -iname '*.json')
+    set relpath (echo $file | sed "s,$src/,,")
+    echo "=== $relpath ==="
+    json-diff $file $dst/$relpath
+  end
+else if [ -f $src -a -f $dst ]
+  json-diff $src $dst
+else
+  echo "Usage: json-diff <dir1> <dir2> or jsondiff <file1> <file2>" 1>&2
+end
+
+# vim: ft=fish sw=2 sts=2 et
