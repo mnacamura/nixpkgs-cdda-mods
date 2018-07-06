@@ -1,6 +1,6 @@
-{ stdenv, fetchurl, buildCataclysmDDASoundPack }:
+{ stdenv, fetchurl, buildCDDASoundPack }:
 
-buildCataclysmDDASoundPack rec {
+buildCDDASoundPack rec {
   soundPackName = "CDDA-Soundpack";
   version = "1.3";
 
