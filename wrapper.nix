@@ -1,18 +1,17 @@
 { stdenv, lib, symlinkJoin, makeWrapper }:
 
-bareCDDA:
+unwrapped:
 
 let
-
-  wrapper = { mods, ... } @ args:
+  wrapper = { packages, ... } @ args:
   let
-    cdda = bareCDDA.override (builtins.removeAttrs args [ "mods" ]);
+    unwrapped' = unwrapped.override (builtins.removeAttrs args [ "packages" ]);
   in
-  if builtins.length mods == 0 then cdda
+  if builtins.length packages == 0 then unwrapped'
   else symlinkJoin {
-    name = cdda.name + "-with-mods";
+    name = unwrapped'.name + "-with-mods";
 
-    paths = [ cdda ] ++ mods;
+    paths = [ unwrapped' ] ++ packages;
 
     nativeBuildInputs = [ makeWrapper ];
 
@@ -27,9 +26,8 @@ let
       fi
     '';
 
-    passthru.mods = mods;
+    passthru.packages = packages;
   };
-
 in
 
 lib.makeOverridable wrapper

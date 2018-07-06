@@ -1,9 +1,9 @@
-{ stdenv, callPackage }:
+{ callPackage, stdenv }:
 
 {
-  wrapCDDA = callPackage ./wrapper.nix {};
+  wrapCataclysmDDA = callPackage ./wrapper.nix {};
 
-  buildCDDAMod = { modName, version, src, ... } @ args:
+  buildCataclysmDDAMod = { modName, version, src, ... } @ args:
   stdenv.mkDerivation (args // {
     name = args.name or "cataclysm-dda-mod-${modName}-${version}";
 
@@ -37,4 +37,7 @@
       runHook postInstall
     '';
   });
+
+  buildCataclysmDDASoundPack = { soundPackName, version, src, ... } @ args:
+  true;
 }

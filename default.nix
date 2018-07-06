@@ -1,26 +1,43 @@
 self: super:
 
+let
+  lib = self.callPackage ./lib.nix {};
+
+  cataclysm-dda = self.wrapCataclysmDDA super.cataclysm-dda {
+    packages = [];
+  };
+
+  cataclysm-dda-console = self.wrapCataclysmDDA super.cataclysm-dda {
+    tiles = false;
+    packages = [];
+  };
+
+  cataclysm-dda-git = self.wrapCataclysmDDA super.cataclysm-dda-git {
+    packages = [];
+  };
+
+  cataclysm-dda-git-console = self.wrapCataclysmDDA super.cataclysm-dda-git {
+    tiles = false;
+    packages = [];
+  };
+
+  pkgs = self.callPackage ./pkgs.nix {};
+in
+
 {
-  inherit (super.callPackage ./lib {}) wrapCDDA buildCDDAMod;
+  callPackage = super.newScope self;
 
-  cataclysm-dda = self.wrapCDDA super.cataclysm-dda {
-    mods = [];
-  };
+  inherit (lib)
+  wrapCataclysmDDA
+  buildCataclysmDDAMod
+  buildCataclysmDDASoundPack;
 
-  cataclysm-dda-console = self.wrapCDDA super.cataclysm-dda {
-    tiles = false;
-    mods = [];
-  };
+  inherit
+  cataclysm-dda
+  cataclysm-dda-console
+  cataclysm-dda-git
+  cataclysm-dda-git-console;
 
-  cataclysm-dda-git = self.wrapCDDA super.cataclysm-dda-git {
-    mods = [];
-  };
-
-  cataclysm-dda-console-git = self.wrapCDDA super.cataclysm-dda-git {
-    tiles = false;
-    mods = [];
-  };
-
-  cataclysmDDAMods = {
-  };
+  inherit (pkgs)
+  cataclysmDDAPackages;
 }
