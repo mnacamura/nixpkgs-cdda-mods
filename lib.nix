@@ -39,5 +39,19 @@
   });
 
   buildCataclysmDDASoundPack = { soundPackName, version, src, ... } @ args:
-  true;
+  stdenv.mkDerivation (args // {
+    name = args.name or "cataclysm-dda-soundpack-${soundPackName}-${version}";
+
+    configurePhase = ":";
+    buildPhase = ":";
+    checkPhase = ":";
+
+    installPhase = args.installPhase or ''
+      runHook preInstall
+      dest="$out/share/cataclysm-dda/sound"
+      mkdir -p "$dest"
+      cp -R ${soundPackName} "$dest"/
+      runHook postInstall
+    '';
+  });
 }
