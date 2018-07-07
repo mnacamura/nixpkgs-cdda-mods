@@ -13,7 +13,7 @@ buildCDDASoundPack rec {
 
   meta = with stdenv.lib; {
     description = "A soundpack based on ChestHole's with some RRFSounds mixed in";
-    homepage = "https://github.com/budg3/CDDA-Soundpack/";
+    homepage = "https://github.com/budg3/CDDA-Soundpack";
     license = licenses.unfree;
     maintainers = [];
     platforms = platforms.all;
