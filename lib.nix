@@ -38,7 +38,7 @@ rec {
       doc="$doc/share/doc/cataclysm-dda/mods/${modName}"
       mkdir -p "$doc"
       # Guess documents
-      for file in $(find . -maxdepth 1 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
+      for file in $(find . -maxdepth 2 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
       do
           cp "$file" "$doc"/
       done
@@ -68,10 +68,10 @@ rec {
       mkdir -p "$sound"
       cp -R ${soundPackName} "$sound"/
 
-      doc="$doc/share/doc/cataclysm-dda/sound/${modName}"
+      doc="$doc/share/doc/cataclysm-dda/sound/${soundPackName}"
       mkdir -p "$doc"
       # Guess documents
-      for file in $(find . -maxdepth 1 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
+      for file in $(find . -maxdepth 2 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
       do
           cp "$file" "$doc"/
       done
