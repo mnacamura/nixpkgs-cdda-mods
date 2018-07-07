@@ -1,20 +1,24 @@
-{ stdenv, lib, symlinkJoin, makeWrapper }:
+{ stdenv, cataclysmDDAPackages, symlinkJoin, makeWrapper }:
 
 unwrapped:
 
+with cataclysmDDAPackages;
+
 let
+  inherit (stdenv.lib) filter makeOverridable;
+
   wrapper = { packages, ... } @ args:
   let
     unwrapped' = unwrapped.override (builtins.removeAttrs args [ "packages" ]);
+    packages' = if isTiles unwrapped'
+    then filter (pkg: pkg.isTiles) packages
+    else filter (pkg: pkg.isConsole) packages;
   in
-  if builtins.length packages == 0 then unwrapped'
+  if builtins.length packages' == 0 then unwrapped'
   else symlinkJoin {
     name = unwrapped'.name + "-with-mods";
-
-    paths = [ unwrapped' ] ++ packages;
-
+    paths = [ unwrapped' ] ++ packages';
     nativeBuildInputs = [ makeWrapper ];
-
     postBuild = ''
       if [ -x $out/bin/cataclysm ]; then
           wrapProgram $out/bin/cataclysm \
@@ -25,9 +29,8 @@ let
               --add-flags "--datadir $out/share/cataclysm-dda/"
       fi
     '';
-
-    passthru.packages = packages;
+    passthru.packages = packages';
   };
 in
 
-lib.makeOverridable wrapper
+makeOverridable wrapper

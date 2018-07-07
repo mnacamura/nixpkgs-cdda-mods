@@ -1,4 +1,6 @@
-{ callPackage }:
+{ cataclysmDDAPackages }:
+
+with cataclysmDDAPackages;
 
 let
   mods = {
@@ -10,6 +12,4 @@ let
   };
 in
 
-{
-  cataclysmDDAPackages = mods // soundpacks;
-}
+mods // soundpacks

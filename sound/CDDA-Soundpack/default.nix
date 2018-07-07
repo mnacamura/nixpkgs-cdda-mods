@@ -1,4 +1,6 @@
-{ stdenv, fetchurl, buildCDDASoundPack }:
+{ stdenv, fetchurl, cataclysmDDAPackages }:
+
+with cataclysmDDAPackages;
 
 buildCDDASoundPack rec {
   soundPackName = "CDDA-Soundpack";
