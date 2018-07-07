@@ -22,33 +22,27 @@ rec {
     isTiles = true;
     isConsole = true;
 
-    configurePhase = args.configurePhase or ''
-      runHook preConfigure
-      # noop
-      runHook postConfigure
-    '';
+    configurePhase = ":";
+    buildPhase = ":";
+    checkPhase = ":";
 
-    buildPhase = args.buildPhase or ''
-      runHook prebuild
-      # noop
-      runHook postbuild
-    '';
-
-    checkPhase = args.checkPhase or ''
-      runHook preCheck
-      echo "Checking mod"
-      # check something
-      runHook postCheck
-    '';
-
-    doCheck = args.doCheck or true;
+    outputs = [ "out" "doc" ];
 
     installPhase = args.installPhase or ''
       runHook preInstall
-      dest=$out/share/cataclysm-dda/mods/${modName}
-      for file in $(find . -type f -not -name '*.nix'); do
-          install -D -m 444 $file -T $(echo $file | sed "s,.,$dest,")
+
+      mods="$out/share/cataclysm-dda/mods"
+      mkdir -p "$mods"
+      cp -R ${modName} "$mods"/
+
+      doc="$doc/share/doc/cataclysm-dda/mods/${modName}"
+      mkdir -p "$doc"
+      # Guess documents
+      for file in $(find . -maxdepth 1 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
+      do
+          cp "$file" "$doc"/
       done
+
       runHook postInstall
     '';
   });
@@ -65,11 +59,23 @@ rec {
     buildPhase = ":";
     checkPhase = ":";
 
+    outputs = [ "out" "doc" ];
+
     installPhase = args.installPhase or ''
       runHook preInstall
-      dest="$out/share/cataclysm-dda/sound"
-      mkdir -p "$dest"
-      cp -R ${soundPackName} "$dest"/
+
+      sound="$out/share/cataclysm-dda/sound"
+      mkdir -p "$sound"
+      cp -R ${soundPackName} "$sound"/
+
+      doc="$doc/share/doc/cataclysm-dda/sound/${modName}"
+      mkdir -p "$doc"
+      # Guess documents
+      for file in $(find . -maxdepth 1 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
+      do
+          cp "$file" "$doc"/
+      done
+
       runHook postInstall
     '';
   });
