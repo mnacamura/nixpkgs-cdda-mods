@@ -5,6 +5,7 @@ with cataclysmDDAPackages;
 let
   mods = {
     hokuto = callPackage ./mods/hokuto {};
+    Ninja = callPackage ./mods/Ninja {};
   };
 
   soundpacks = {
