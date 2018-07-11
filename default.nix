@@ -46,7 +46,6 @@ in
 
     inherit (pkgs)
     CDDA-Soundpack
-    hokuto
     Ninja
     ;
   };
