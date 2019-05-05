@@ -27,22 +27,12 @@ rec {
     configurePhase = args.configurePhase or ":";
     buildPhase = args.buildPhase or ":";
 
-    outputs = [ "out" "doc" ];
-
     installPhase = args.installPhase or ''
       runHook preInstall
 
       destdir="$out/share/cataclysm-dda/mods"
       mkdir -p "$destdir"
-      cp -R ${modRoot} "$destdir"/
-
-      docdir="$doc/share/doc/cataclysm-dda/mods/${modRoot}"
-      mkdir -p "$docdir"
-      # Guess documents
-      for file in $(find . -maxdepth 2 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
-      do
-          cp "$file" "$docdir"/
-      done
+      cp -R "${modRoot}" "$destdir"/
 
       runHook postInstall
     '';
@@ -61,22 +51,12 @@ rec {
     configurePhase = args.configurePhase or ":";
     buildPhase = args.buildPhase or ":";
 
-    outputs = [ "out" "doc" ];
-
     installPhase = args.installPhase or ''
       runHook preInstall
 
       destdir="$out/share/cataclysm-dda/sound"
       mkdir -p "$destdir"
-      cp -R ${soundPackRoot} "$destdir"/
-
-      docdir="$doc/share/doc/cataclysm-dda/sound/${soundPackRoot}"
-      mkdir -p "$docdir"
-      # Guess documents
-      for file in $(find . -maxdepth 2 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
-      do
-          cp "$file" "$docdir"/
-      done
+      cp -R "${soundPackRoot}" "$destdir"/
 
       runHook postInstall
     '';
