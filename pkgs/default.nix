@@ -8,7 +8,7 @@ let
   };
 
   soundpacks = {
-    CDDA-Soundpack = callPackage ./sound/CDDA-Soundpack {};
+    CDDA-Soundpack = callPackage ./soundpacks/CDDA-Soundpack {};
   };
 in
 

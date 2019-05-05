@@ -23,7 +23,7 @@ let
 
   lib = callPackage ./lib.nix {};
 
-  pkgs = callPackage ./pkgs.nix {};
+  pkgs = callPackage ./pkgs {};
 in
 
 {
