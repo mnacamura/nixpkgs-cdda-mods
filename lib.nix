@@ -16,31 +16,32 @@ rec {
 
   # Define a mod package.
   buildCDDAMod = { modName, version, src, ... } @ args:
-  stdenv.mkDerivation (args // {
+  stdenv.mkDerivation (args // rec {
     name = args.name or "cataclysm-dda-mod-${modName}-${version}";
 
     isTiles = true;
     isConsole = true;
 
-    configurePhase = ":";
-    buildPhase = ":";
-    checkPhase = ":";
+    modRoot = args.modRoot or modName;
+
+    configurePhase = args.configurePhase or ":";
+    buildPhase = args.buildPhase or ":";
 
     outputs = [ "out" "doc" ];
 
     installPhase = args.installPhase or ''
       runHook preInstall
 
-      mods="$out/share/cataclysm-dda/mods"
-      mkdir -p "$mods"
-      cp -R ${modName} "$mods"/
+      destdir="$out/share/cataclysm-dda/mods"
+      mkdir -p "$destdir"
+      cp -R ${modRoot} "$destdir"/
 
-      doc="$doc/share/doc/cataclysm-dda/mods/${modName}"
-      mkdir -p "$doc"
+      docdir="$doc/share/doc/cataclysm-dda/mods/${modRoot}"
+      mkdir -p "$docdir"
       # Guess documents
       for file in $(find . -maxdepth 2 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
       do
-          cp "$file" "$doc"/
+          cp "$file" "$docdir"/
       done
 
       runHook postInstall
@@ -49,31 +50,32 @@ rec {
 
   # Define a soundpack package.
   buildCDDASoundPack = { soundPackName, version, src, ... } @ args:
-  stdenv.mkDerivation (args // {
+  stdenv.mkDerivation (args // rec {
     name = args.name or "cataclysm-dda-soundpack-${soundPackName}-${version}";
 
     isTiles = true;
     isConsole = false;
 
-    configurePhase = ":";
-    buildPhase = ":";
-    checkPhase = ":";
+    soundPackRoot = args.soundPackRoot or soundPackName;
+
+    configurePhase = args.configurePhase or ":";
+    buildPhase = args.buildPhase or ":";
 
     outputs = [ "out" "doc" ];
 
     installPhase = args.installPhase or ''
       runHook preInstall
 
-      sound="$out/share/cataclysm-dda/sound"
-      mkdir -p "$sound"
-      cp -R ${soundPackName} "$sound"/
+      destdir="$out/share/cataclysm-dda/sound"
+      mkdir -p "$destdir"
+      cp -R ${soundPackRoot} "$destdir"/
 
-      doc="$doc/share/doc/cataclysm-dda/sound/${soundPackName}"
-      mkdir -p "$doc"
+      docdir="$doc/share/doc/cataclysm-dda/sound/${soundPackRoot}"
+      mkdir -p "$docdir"
       # Guess documents
       for file in $(find . -maxdepth 2 -type f -iregex '.*readme.*' -or -name '*.{md,txt}')
       do
-          cp "$file" "$doc"/
+          cp "$file" "$docdir"/
       done
 
       runHook postInstall
