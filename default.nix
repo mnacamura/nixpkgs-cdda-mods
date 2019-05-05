@@ -44,9 +44,6 @@ in
     buildCDDASoundPack
     ;
 
-    inherit (pkgs)
-    CDDA-Soundpack
-    Ninja
-    ;
+    inherit (pkgs) mod soundpack;
   };
 }

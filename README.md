@@ -17,7 +17,7 @@ Then, you can customize the derivation of Cataclysm DDA:
 
 ```nix
 cataclysm-dda-git-console.override {
-  packages = with cataclysmDDAPackages; [ Ninja ];
+  packages = with cataclysmDDAPackages; [ mod.Ninja ];
 }
 ```
 

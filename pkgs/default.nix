@@ -3,13 +3,13 @@
 with cataclysmDDAPackages;
 
 let
-  mods = {
+  mod = {
     Ninja = callPackage ./mods/Ninja {};
   };
 
-  soundpacks = {
-    CDDA-Soundpack = callPackage ./soundpacks/CDDA-Soundpack {};
+  soundpack = {
+    CDDA = callPackage ./soundpacks/CDDA {};
   };
 in
 
-mods // soundpacks
+{ inherit mod soundpack; }
