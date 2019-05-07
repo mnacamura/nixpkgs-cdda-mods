@@ -1,10 +1,10 @@
-{ stdenv, cataclysmDDAPackages }:
+{ stdenv, lib, cataclysmDDAPackages }:
 
 with cataclysmDDAPackages;
 
 let
   makeBuildCDDAPackage = type:
-  assert stdenv.lib.elem type [
+  assert lib.elem type [
     "mod"
     "soundpack"
   ];
@@ -45,7 +45,7 @@ in
 rec {
   # Check if a given cataclysm-dda is tiles build.
   isTiles = unwrapped:
-  builtins.any (f: f == "TILES=1") unwrapped.makeFlags;
+  lib.any (f: f == "TILES=1") unwrapped.makeFlags;
 
   # Check if a given cataclysm-dda is console build.
   isConsole = unwrapped:
