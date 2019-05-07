@@ -32,7 +32,7 @@ rec {
 
       destdir="$out/share/cataclysm-dda/mods"
       mkdir -p "$destdir"
-      cp -R "${modRoot}" "$destdir"/
+      cp -R "${modRoot}" "$destdir/${modName}"
 
       runHook postInstall
     '';
@@ -56,7 +56,7 @@ rec {
 
       destdir="$out/share/cataclysm-dda/sound"
       mkdir -p "$destdir"
-      cp -R "${soundPackRoot}" "$destdir"/
+      cp -R "${soundPackRoot}" "$destdir/${soundPackName}"
 
       runHook postInstall
     '';

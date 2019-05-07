@@ -14,7 +14,7 @@ buildCDDASoundPack rec {
 
   nativeBuildInputs = [ unzip ];
 
-  soundPackRoot = "../CO.AG SoundPack";
+  soundPackRoot = ".";
 
   meta = with stdenv.lib; {
     description = "A C:DDA soundpack with the best dramatic and immersive post-apocalyptic atmosphere";
