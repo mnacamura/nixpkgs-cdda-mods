@@ -3,7 +3,7 @@
 with cataclysmDDAPackages;
 
 buildCDDASoundPack rec {
-  soundPackName = "COAG";
+  modName = "COAG";
   version = "1.1";
 
   src = requireFile rec {
@@ -14,7 +14,7 @@ buildCDDASoundPack rec {
 
   nativeBuildInputs = [ unzip ];
 
-  soundPackRoot = ".";
+  modRoot = ".";
 
   meta = with stdenv.lib; {
     description = "A C:DDA soundpack with the best dramatic and immersive post-apocalyptic atmosphere";
