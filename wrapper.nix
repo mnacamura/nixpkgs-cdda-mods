@@ -1,11 +1,11 @@
-{ stdenv, cataclysmDDAPackages, symlinkJoin, makeWrapper }:
+{ lib, cataclysmDDAPackages, symlinkJoin, makeWrapper }:
 
 unwrapped:
 
 with cataclysmDDAPackages;
 
 let
-  inherit (stdenv.lib) filter makeOverridable;
+  inherit (lib) filter makeOverridable;
 
   wrapper = { packages, ... } @ args:
   let

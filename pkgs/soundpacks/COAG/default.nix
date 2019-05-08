@@ -1,4 +1,4 @@
-{ stdenv, requireFile, unzip, cataclysmDDAPackages }:
+{ lib, requireFile, unzip, cataclysmDDAPackages }:
 
 with cataclysmDDAPackages;
 
@@ -16,7 +16,7 @@ buildCDDASoundPack rec {
 
   modRoot = ".";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A C:DDA soundpack with the best dramatic and immersive post-apocalyptic atmosphere";
     homepage = "https://discourse.cataclysmdda.org/t/soundpack-co-ag-soundpack-v1-1-02-mar-19-only-the-music-alternative-addon/18992";
     license = licenses.cc-by-40;

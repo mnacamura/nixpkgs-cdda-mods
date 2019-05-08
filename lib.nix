@@ -1,4 +1,4 @@
-{ stdenv, lib, cataclysmDDAPackages }:
+{ stdenvNoCC, lib, cataclysmDDAPackages }:
 
 with cataclysmDDAPackages;
 
@@ -9,7 +9,7 @@ let
     "soundpack"
   ];
   { modName, version, src, ... } @ args:
-  stdenv.mkDerivation (args // rec {
+  stdenvNoCC.mkDerivation (args // rec {
 
     name = args.name or "cataclysm-dda-mod-${modName}-${version}";
 
