@@ -10,6 +10,7 @@ let
   soundpack = {
     CDDA = callPackage ./soundpacks/CDDA {};
     COAG = callPackage ./soundpacks/COAG {};
+    atmark = callPackage ./soundpacks/atmark {};
   };
 in
 
