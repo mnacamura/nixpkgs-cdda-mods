@@ -20,7 +20,7 @@ buildCDDASoundPack rec {
     description = "A C:DDA soundpack with the best dramatic and immersive post-apocalyptic atmosphere";
     homepage = "https://discourse.cataclysmdda.org/t/soundpack-co-ag-soundpack-v1-1-02-mar-19-only-the-music-alternative-addon/18992";
     license = licenses.cc-by-40;
-    maintainers = [];
+    maintainers = [ mnacamura ];
     platforms = platforms.all;
   };
 }

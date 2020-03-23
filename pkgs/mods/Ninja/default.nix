@@ -17,7 +17,7 @@ buildCDDAMod rec {
     description = "忍者の衣装・NPC・マップ等を追加するMOD";
     homepage = "https://github.com/hirmiura/cdda-mod-Ninja";
     license = licenses.unfree;
-    maintainers = [];
+    maintainers = [ mnacamura ];
     platforms = platforms.all;
   };
 }

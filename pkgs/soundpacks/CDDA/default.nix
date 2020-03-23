@@ -19,7 +19,7 @@ buildCDDASoundPack rec {
     description = "A C:DDA soundpack based on ChestHole's with some RRFSounds mixed in";
     homepage = "https://github.com/budg3/CDDA-Soundpack";
     license = licenses.unfree;
-    maintainers = [];
+    maintainers = [ mnacamura ];
     platforms = platforms.all;
   };
 }

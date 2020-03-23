@@ -19,7 +19,7 @@ buildCDDASoundPack rec {
     description = "A C:DDA soundpack based on 2ch soundpack";
     homepage = https://github.com/damalsk/damalsksoundpack;
     license = licenses.unfree;
-    maintainers = [];
+    maintainers = [ mnacamura ];
     platforms = platforms.all;
   };
 }
