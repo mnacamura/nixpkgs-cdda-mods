@@ -39,6 +39,8 @@ in
     inherit (lib)
     isTiles
     isConsole
+    forTiles
+    forConsole
     wrapCDDA
     buildCDDAMod
     buildCDDASoundPack

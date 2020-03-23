@@ -13,8 +13,8 @@ let
 
     name = args.name or "cataclysm-dda-mod-${modName}-${version}";
 
-    isTiles = true;
-    isConsole =
+    forTiles = true;
+    forConsole =
       if type == "mod" then true
       else if type == "soundpack" then false
       else null;

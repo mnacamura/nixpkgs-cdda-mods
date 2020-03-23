@@ -11,8 +11,8 @@ let
   let
     unwrapped' = unwrapped.override (builtins.removeAttrs args [ "packages" ]);
     packages' = if isTiles unwrapped'
-    then filter (pkg: pkg.isTiles) packages
-    else filter (pkg: pkg.isConsole) packages;
+    then filter (pkg: pkg.forTiles) packages
+    else filter (pkg: pkg.forConsole) packages;
   in
   if builtins.length packages' == 0 then unwrapped'
   else symlinkJoin {
