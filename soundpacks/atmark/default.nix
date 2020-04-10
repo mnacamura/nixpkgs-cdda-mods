@@ -15,7 +15,7 @@ cataclysmDDA.buildSoundPack rec {
     description = "Cataclysm DDA soundpack based on 2ch soundpack";
     homepage = https://github.com/damalsk/damalsksoundpack;
     license = licenses.unfree;
-    maintainers = [ mnacamura ];
+    maintainers = with maintainers; [ mnacamura ];
     platforms = platforms.all;
   };
 }
