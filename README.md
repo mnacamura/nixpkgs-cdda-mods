@@ -1,4 +1,4 @@
-# A Nixpkgs overlay of Cataclysm DDA mods and soundpacks
+# A Nixpkgs overlay of Cataclysm DDA mods
 
 ## Status
 
@@ -13,16 +13,21 @@ cd ~/.config/nixpkgs/overlays
 ln -s $SOMEWHERE/nixpkgs-cdda-mods
 ```
 
-Then, you can customize the derivation of Cataclysm DDA:
+After that, mods defined in this overlay will be available in `cataclysmDDA.pkgs`.
+
+## Usage
+
+You can install the game with mods as usual:
 
 ```nix
-cataclysm-dda-git-console.override {
-  packages = with cataclysmDDAPackages; [ mod.Ninja ];
-}
+cataclysm-dda.withMods (mods: with mods; [
+  tileset.UndeadPeople
+  soundpack.atmark
+])
 ```
 
 ## License
 
-Copyright (c) 2018 Mitsuhiro Nakamura
+Copyright (c) 2018--2020 Mitsuhiro Nakamura
 
 This software is distributed under the MIT license.

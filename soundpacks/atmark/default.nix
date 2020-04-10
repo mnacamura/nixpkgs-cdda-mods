@@ -1,8 +1,6 @@
-{ lib, fetchFromGitHub, cataclysmDDAPackages }:
+{ lib, cataclysmDDA, fetchFromGitHub }:
 
-with cataclysmDDAPackages;
-
-buildCDDASoundPack rec {
+cataclysmDDA.buildSoundPack rec {
   modName = "atmark";
   version = "0.2";
 
@@ -13,10 +11,8 @@ buildCDDASoundPack rec {
     sha256 = "0vgv7sfwjfssv247i2czn823fvr0slqpz9z2p6fv8f03kx62bfx8";
   };
 
-  modRoot = ".";
-
   meta = with lib; {
-    description = "A C:DDA soundpack based on 2ch soundpack";
+    description = "Cataclysm DDA soundpack based on 2ch soundpack";
     homepage = https://github.com/damalsk/damalsksoundpack;
     license = licenses.unfree;
     maintainers = [ mnacamura ];

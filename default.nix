@@ -1,51 +1,67 @@
 self: super:
 
-with self.cataclysmDDAPackages;
+with self;
 
 let
-  cataclysm-dda = wrapCDDA super.cataclysm-dda {
-    packages = [];
+  withMorePkgs = newPkgs: oldPkgs:
+  lib.recursiveUpdate oldPkgs {
+    mod = {
+    };
+
+    soundpack = {
+      atmark = callPackage ./soundpacks/atmark {};
+    };
+
+    tileset = {
+    };
   };
 
-  cataclysm-dda-console = wrapCDDA super.cataclysm-dda {
-    tiles = false;
-    packages = [];
-  };
+  availableFor = build: _: mod:
+  if isNull build then
+    true
+  else if build.isTiles then
+    mod.forTiles
+  else
+    mod.forCurses;
 
-  cataclysm-dda-git = wrapCDDA super.cataclysm-dda-git {
-    packages = [];
-  };
-
-  cataclysm-dda-git-console = wrapCDDA super.cataclysm-dda-git {
-    tiles = false;
-    packages = [];
-  };
-
-  lib = callPackage ./lib.nix {};
-
-  pkgs = callPackage ./pkgs {};
+  filterAvailablePkgsFor = build: pkgs:
+  lib.mapAttrs (_: mod: lib.filterAttrs (availableFor build) mod) pkgs;
 in
 
 {
-  inherit
-  cataclysm-dda
-  cataclysm-dda-console
-  cataclysm-dda-git
-  cataclysm-dda-git-console;
+  cataclysmDDA = super.cataclysmDDA // rec {
+    pkgs = super.cataclysmDDA.pkgs.extend withMorePkgs;
 
-  cataclysmDDAPackages = {
-    callPackage = super.newScope self;
+    stable = rec {
+      tiles = super.cataclysmDDA.stable.tiles.overrideAttrs (old: {
+        passthru = old.passthru // {
+          pkgs = filterAvailablePkgsFor tiles pkgs;
+          withMods = cataclysmDDA.wrapCDDA tiles;
+        };
+      });
 
-    inherit (lib)
-    isTiles
-    isConsole
-    forTiles
-    forConsole
-    wrapCDDA
-    buildCDDAMod
-    buildCDDASoundPack
-    ;
+      curses = (tiles.override { tiles = false; }).overrideAttrs (old: {
+        passthru = old.passthru // {
+          pkgs = filterAvailablePkgsFor curses pkgs;
+          withMods = cataclysmDDA.wrapCDDA curses;
+        };
+      });
+    };
 
-    inherit (pkgs) mod soundpack;
+    git = rec {
+      tiles = super.cataclysmDDA.git.tiles.overrideAttrs (old: {
+        passthru = old.passthru // {
+          pkgs = filterAvailablePkgsFor tiles pkgs;
+          withMods = cataclysmDDA.wrapCDDA tiles;
+        };
+      });
+
+      curses = (tiles.override { tiles = false; }).overrideAttrs (old: {
+        passthru = old.passthru // {
+          pkgs = filterAvailablePkgsFor curses pkgs;
+          withMods = cataclysmDDA.wrapCDDA curses;
+        };
+      });
+    };
   };
 }
