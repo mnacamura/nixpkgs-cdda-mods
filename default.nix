@@ -40,7 +40,7 @@ in
         };
       });
 
-      curses = (tiles.override { tiles = false; }).overrideAttrs (old: {
+      curses = super.cataclysmDDA.stable.curses.overrideAttrs (old: {
         passthru = old.passthru // {
           pkgs = old.passthru.pkgs.extend (withMorePkgsFor curses);
           withMods = cataclysmDDA.wrapCDDA curses;
@@ -56,7 +56,7 @@ in
         };
       });
 
-      curses = (tiles.override { tiles = false; }).overrideAttrs (old: {
+      curses = super.cataclysmDDA.stable.curses.overrideAttrs (old: {
         passthru = old.passthru // {
           pkgs = old.passthru.pkgs.extend (withMorePkgsFor curses);
           withMods = cataclysmDDA.wrapCDDA curses;
