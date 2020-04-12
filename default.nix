@@ -3,6 +3,17 @@ self: super:
 with self;
 
 let
+  addMorePkgsTo = build:
+  let
+    self = build.overrideAttrs (old: {
+      passthru = old.passthru // {
+        pkgs = old.passthru.pkgs.extend (withMorePkgsFor self);
+        withMods = cataclysmDDA.wrapCDDA self;
+      };
+    });
+  in
+  self;
+
   withMorePkgsFor = build: newPkgs: oldPkgs:
   lib.recursiveUpdate oldPkgs (filterAvailablePkgsFor build {
     mod = {
@@ -29,39 +40,17 @@ let
 in
 
 {
-  cataclysmDDA = super.cataclysmDDA // rec {
-    pkgs = super.cataclysmDDA.pkgs.extend (withMorePkgsFor null);
+  cataclysmDDA = super.cataclysmDDA // (with super.cataclysmDDA; {
+    pkgs = pkgs.extend (withMorePkgsFor null);
 
-    stable = rec {
-      tiles = super.cataclysmDDA.stable.tiles.overrideAttrs (old: {
-        passthru = old.passthru // {
-          pkgs = old.passthru.pkgs.extend (withMorePkgsFor tiles);
-          withMods = cataclysmDDA.wrapCDDA tiles;
-        };
-      });
-
-      curses = super.cataclysmDDA.stable.curses.overrideAttrs (old: {
-        passthru = old.passthru // {
-          pkgs = old.passthru.pkgs.extend (withMorePkgsFor curses);
-          withMods = cataclysmDDA.wrapCDDA curses;
-        };
-      });
+    stable = {
+      tiles = addMorePkgsTo stable.tiles;
+      curses = addMorePkgsTo stable.curses;
     };
 
-    git = rec {
-      tiles = super.cataclysmDDA.git.tiles.overrideAttrs (old: {
-        passthru = old.passthru // {
-          pkgs = old.passthru.pkgs.extend (withMorePkgsFor tiles);
-          withMods = cataclysmDDA.wrapCDDA tiles;
-        };
-      });
-
-      curses = super.cataclysmDDA.stable.curses.overrideAttrs (old: {
-        passthru = old.passthru // {
-          pkgs = old.passthru.pkgs.extend (withMorePkgsFor curses);
-          withMods = cataclysmDDA.wrapCDDA curses;
-        };
-      });
+    git = {
+      tiles = addMorePkgsTo git.tiles;
+      curses = addMorePkgsTo git.curses;
     };
-  };
+  });
 }
