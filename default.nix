@@ -3,17 +3,6 @@ self: super:
 with self;
 
 let
-  addMorePkgsTo = build:
-  let
-    self = build.overrideAttrs (old: {
-      passthru = old.passthru // {
-        pkgs = old.passthru.pkgs.extend (withMorePkgsFor self);
-        withMods = cataclysmDDA.wrapCDDA self;
-      };
-    });
-  in
-  self;
-
   withMorePkgsFor = build: newPkgs: oldPkgs:
   lib.recursiveUpdate oldPkgs (filterAvailablePkgsFor build {
     mod = {
@@ -27,6 +16,20 @@ let
     };
   });
 
+  addMorePkgsTo = build:
+  let
+    self = build.overrideAttrs (old: {
+      passthru = old.passthru // {
+        pkgs = old.passthru.pkgs.extend (withMorePkgsFor self);
+        withMods = cataclysmDDA.wrapCDDA self;
+      };
+    });
+  in
+  self;
+
+  filterAvailablePkgsFor = build: pkgs:
+  lib.mapAttrs (_: mods: lib.filterAttrs (availableFor build) mods) pkgs;
+
   availableFor = build: _: mod:
   if isNull build then
     true
@@ -34,9 +37,6 @@ let
     mod.forTiles
   else
     mod.forCurses;
-
-  filterAvailablePkgsFor = build: pkgs:
-  lib.mapAttrs (_: mod: lib.filterAttrs (availableFor build) mod) pkgs;
 in
 
 {
