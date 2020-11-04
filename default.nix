@@ -8,9 +8,7 @@ let
     mod = {
     };
 
-    soundpack = {
-      atmark = callPackage ./soundpacks/atmark {};
-    };
+    soundpack = super.callPackage ./soundpacks.nix {};
 
     tileset = {
     };
