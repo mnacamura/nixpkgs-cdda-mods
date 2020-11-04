@@ -38,8 +38,8 @@
     nativeBuildInputs = [ unzip ];
     modRoot = "sound/RRFSounds";
   };
-  CDDA = cataclysmDDA.buildSoundPack {
-    modName = "CDDA";
+  budg3 = cataclysmDDA.buildSoundPack {
+    modName = "budg3";
     version = "1.3";
     src = fetchurl {
       url = "https://github.com/budg3/CDDA-Soundpack/archive/v1.3.zip";

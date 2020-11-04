@@ -25,7 +25,7 @@
                     ("url" . ,(cut regexp-replace #/\?dl=1$/ <> ""))
                     ("mod_root" . "sound/RRFSounds")))
     ("CDDA-Soundpack" . ,(let1 version "1.3"
-                           `(("name" . "CDDA")
+                           `(("name" . "budg3")
                              ("version" . ,version)
                              ("url" . ,(cut regexp-replace #/(?<=archive\/)master(?=\.zip$)/ <>
                                             #"v~|version|"))
