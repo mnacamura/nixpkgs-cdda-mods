@@ -39,6 +39,18 @@
                                  "29a8421d4951e80a280928a595a45084dba1b5d4"))
                   ("mod_root" . "Otopack+ModsUpdates")))))
 
+(define-constant *tilesets*
+  '(("UndeadPeople" . (("type" . "direct_download")
+                       ("name" . "UndeadPeople")
+                       ("url" . "https://github.com/SomeDeadGuy/UndeadPeopleTileset/archive/master.zip")
+                       ("homepage" . "https://github.com/SomeDeadGuy/UndeadPeopleTileset")))))
+
+(define-constant *tileset-overrides*
+  `(("UndeadPeople" . (("version" . "2020-11-04")
+                       ("url" . ,(cut regexp-replace #/(?<=archive\/)master(?=\.zip$)/ <>
+                                      "a0497221a22fb3264685f8c7e10cb7829470cc58"))
+                       ("mod_root" . "MSX++UnDeadPeopleEdition")))))
+
 (define (get-data-from-cddagl-repo target)
   (let-values ([(status _ body)
                 (http-get "raw.githubusercontent.com"
@@ -47,8 +59,11 @@
         (parse-json-string body)
         (error #"Failed to get ~|target|.json from cddagl repo:" body))))
 
-(define (build-soundpack datum :optional (indent 2))
-  (let1 override (assoc-ref *soundpack-overrides*
+(define (build-mod class datum :optional (indent 2))
+  (let1 override (assoc-ref (case class
+                              ((soundpack) *soundpack-overrides*)
+                              ((tileset) *tileset-overrides*)
+                              (else (error "Unknown mod class:" class)))
                             (assoc-ref datum "name")
                             '())
     (define (update attr)
@@ -73,7 +88,11 @@
                            (error "Unknown type:" type))))]
            [mod-root (update "mod_root")])
       (string-join (map (pa$ string-append (make-string indent #\ ))
-                        `(,#"~|name| = cataclysmDDA.buildSoundPack {"
+                        `(,(let1 class (case class
+                                         ((soundpack) "SoundPack")
+                                         ((tileset) "TileSet")
+                                         (else (error "Unknown mod class:" class)))
+                             #"~|name| = cataclysmDDA.build~|class| {")
                           ,#"  modName = \"~|name|\";"
                           ,#"  version = \"~|version|\";"
                           ,@(case type
@@ -98,19 +117,26 @@
                           "}"))
                    "\n"))))
 
-(define (build-soundpacks data)
+(define (build-mods class data)
   (let1 data (remove (^x (let* ([name (assoc-ref x "name")]
-                                [override (assoc-ref *soundpack-overrides* name '())])
+                                [override (assoc-ref (case class
+                                                       ((soundpack) *soundpack-overrides*)
+                                                       ((tileset) *tileset-overrides*)
+                                                       (else (error "Unknown mod class:" class)))
+                                                     name '())])
                            (assoc-ref override "ignore")))
                      data)
     (string-join `("{ cataclysmDDA, fetchurl, unzip }:\n\n{"
                    ,@(map (.$ (cut string-append <> ";")
-                              build-soundpack)
+                              (cut build-mod class <>))
                           data)
                    "}")
                  "\n")))
 
 (define (main _)
-  (let1 data (get-data-from-cddagl-repo "soundpacks")
-    (with-output-to-file "soundpacks.nix"
-                         (lambda () (print (build-soundpacks data))))))
+  (with-output-to-file "soundpacks.nix"
+                       (lambda ()
+                         (print (build-mods 'soundpack (get-data-from-cddagl-repo "soundpacks")))))
+  (with-output-to-file "tilesets.nix"
+                       (lambda ()
+                         (print (build-mods 'tileset *tilesets*)))))

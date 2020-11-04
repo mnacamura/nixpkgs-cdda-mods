@@ -29,6 +29,9 @@ overlay, feel free to make an issue or pull request.
 
 ### Tilesets
 
+- [x] UNDEAD PEOPLE Tileset
+- [ ] Mod tilesets shipped with UNDEAD PEOPLE Tileset
+
 ## Installation
 
 See [the manual](https://nixos.org/manual/nixpkgs/unstable/#sec-overlays-install)

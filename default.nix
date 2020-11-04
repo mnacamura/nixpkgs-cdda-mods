@@ -9,6 +9,7 @@ let
 
   newPkgs = {
     soundpack = super.callPackage ./soundpacks.nix {};
+    tileset = super.callPackage ./tilesets.nix {};
   };
 
   updatePkgs = build:
