@@ -1,4 +1,4 @@
-{ cataclysmDDA, fetchurl, unzip }:
+{ lib, cataclysmDDA, fetchurl, unzip }:
 
 {
   UndeadPeople = cataclysmDDA.buildTileSet {
@@ -11,5 +11,8 @@
     };
     nativeBuildInputs = [ unzip ];
     modRoot = "MSX++UnDeadPeopleEdition";
+    meta = with lib; {
+      homepage = "https://github.com/SomeDeadGuy/UndeadPeopleTileset";
+    };
   };
 }

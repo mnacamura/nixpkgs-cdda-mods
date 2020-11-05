@@ -1,4 +1,4 @@
-{ cataclysmDDA, fetchurl, unzip }:
+{ lib, cataclysmDDA, fetchurl, unzip }:
 
 {
   ArtyomsGunEmporium = cataclysmDDA.buildMod {
@@ -10,5 +10,8 @@
       sha256 = "02pja0sp7jj6sk29jq65jm5rnbh0vnlgfflr0p8ymcrk9y9q5jkr";
     };
     nativeBuildInputs = [ unzip ];
+    meta = with lib; {
+      homepage = "https://discourse.cataclysmdda.org/t/artyoms-gun-emporium-update-2-hotfix-1-holy-shit/10035/494";
+    };
   };
 }

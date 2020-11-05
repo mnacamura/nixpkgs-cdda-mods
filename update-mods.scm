@@ -172,6 +172,9 @@
                           ,@(if mod-root
                                 `(,#"  modRoot = \"~|mod-root|\";")
                                 '())
+                          "  meta = with lib; {"
+                          ,#"    homepage = \"~|homepage|\";"
+                          "  };"
                           "}"))
                    "\n"))))
 
@@ -185,7 +188,7 @@
                                                      name '())])
                            (assoc-ref override "ignore")))
                      data)
-    (string-join `("{ cataclysmDDA, fetchurl, unzip }:\n\n{"
+    (string-join `("{ lib, cataclysmDDA, fetchurl, unzip }:\n\n{"
                    ,@(map (.$ (cut string-append <> ";")
                               (cut build-mod class <>))
                           data)

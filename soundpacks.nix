@@ -1,4 +1,4 @@
-{ cataclysmDDA, fetchurl, unzip }:
+{ lib, cataclysmDDA, fetchurl, unzip }:
 
 {
   ChestHole = cataclysmDDA.buildSoundPack {
@@ -10,6 +10,9 @@
       sha256 = "1d9p1ilxyd64r0xwzvnp30hsgp7aza16p03rwi6h9v2gbd9mmzda";
     };
     nativeBuildInputs = [ unzip ];
+    meta = with lib; {
+      homepage = "https://discourse.cataclysmdda.org/t/ambient-sounds/9710/182";
+    };
   };
   ChestOldTimey = cataclysmDDA.buildSoundPack {
     modName = "ChestOldTimey";
@@ -20,6 +23,9 @@
       sha256 = "0v4gx1lhpc5fw55hfymf1c0agp5bacs9c3h0qgcmc62n6ys4gxhi";
     };
     nativeBuildInputs = [ unzip ];
+    meta = with lib; {
+      homepage = "https://www.reddit.com/r/cataclysmdda/comments/53ndzx/music_recommendations_to_listen_to_while_playing/d7vfd7w";
+    };
   };
   ChestHoleCC = cataclysmDDA.buildSoundPack {
     modName = "ChestHoleCC";
@@ -30,6 +36,9 @@
       sha256 = "07cw5gm7kfxzr2xadpmdv932kz4l5lf9ks8rfh6a4b5fl53lapz7";
     };
     nativeBuildInputs = [ unzip ];
+    meta = with lib; {
+      homepage = "https://www.reddit.com/r/cataclysmdda/comments/53ndzx/music_recommendations_to_listen_to_while_playing/d7vfd7w";
+    };
   };
   RRFSounds = cataclysmDDA.buildSoundPack {
     modName = "RRFSounds";
@@ -41,6 +50,9 @@
     };
     nativeBuildInputs = [ unzip ];
     modRoot = "sound/RRFSounds";
+    meta = with lib; {
+      homepage = "https://discourse.cataclysmdda.org/t/ambient-sounds/9710/201";
+    };
   };
   budg3 = cataclysmDDA.buildSoundPack {
     modName = "budg3";
@@ -52,6 +64,9 @@
     };
     nativeBuildInputs = [ unzip ];
     modRoot = "CDDA-Soundpack";
+    meta = with lib; {
+      homepage = "https://discourse.cataclysmdda.org/t/cdda-soundpack/15329";
+    };
   };
   atsign = cataclysmDDA.buildSoundPack {
     modName = "atsign";
@@ -62,6 +77,9 @@
       sha256 = "1xn0r7yq9pvsfwln6pqi7zj3za6hd10qcy7hq5xy82a47n26dhfw";
     };
     nativeBuildInputs = [ unzip ];
+    meta = with lib; {
+      homepage = "https://discourse.cataclysmdda.org/t/soundpack-s-soundpack-vehicle-sounds-licensed-music-and-more/20131";
+    };
   };
   Otopack = cataclysmDDA.buildSoundPack {
     modName = "Otopack";
@@ -73,5 +91,8 @@
     };
     nativeBuildInputs = [ unzip ];
     modRoot = "Otopack+ModsUpdates";
+    meta = with lib; {
+      homepage = "https://github.com/Kenan2000/Otopack-Mods-Updates";
+    };
   };
 }
