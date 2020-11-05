@@ -14,6 +14,53 @@ overlay, feel free to make an issue or pull request.
 
 ### Mods
 
+- [ ] Artyoms' Gun Emporium
+- [ ] Artyoms' Gun Emporium - Reloaded
+- [ ] EXTENDED_BUILDINGS
+- [ ] ZSFIXED_C:DDA Extra Professions & Gears
+- [ ] Jury-Rigged Robots
+- [ ] Compatible Nimian Manufacture Guns
+- [ ] Removes Nether Creatures
+- [ ] Cataclysm++
+- [ ] Cataclysm++ [0.D Stable]
+- [ ] BL9
+- [ ] Mining Mod
+- [ ] Packaging
+- [ ] Parks and Rec Building Pack
+- [ ] Mutation Changes
+- [ ] No Recreationals
+- [ ] Whaleys Small Town Building Pack
+- [ ] PKs Rebalancing [build > 8098]
+- [ ] Oa's Additional Buildings mod
+- [ ] Fuji's More Buildings
+- [ ] More City Locations
+- [ ] No Makeshift Firearms
+- [ ] Wintertime Classes
+- [ ] Storage Battery Conversions
+- [ ] Craft Ammo Magazines & Belt Links
+- [ ] Craft Ammo Mags - ERG
+- [ ] Dark Days Ahead: Lua
+- [ ] Cars to Wrecks
+- [ ] Ninja MOD
+- [ ] Draco's Dog Mod
+- [ ] Big River Building Pack
+- [ ] Seedy Spots Building Pack
+- [ ] Whaleys Big Ol' Building Pack
+- [ ] More Builings & Locations!
+- [ ] Bootleg Walkers
+- [ ] Beta National Guard Camp, Aggregate's edit
+- [ ] No Freeze
+- [ ] Gun Cotton
+- [ ] Secronom
+- [ ] Vampiric Stuff
+- [ ] Hydroponics
+- [ ] Nechronica Redux
+- [ ] No Zombies
+- [ ] More Survivor Stuff
+- [ ] XEAS
+- [ ] Easy CBM Mods
+- [ ] Useful Helicopters
+
 ### Soundpacks
 
 - [ ] CO.AG MusicPack
