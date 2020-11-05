@@ -23,7 +23,10 @@
     ("Jury-Rigged Robots" . (("ignore" . #t)))
     ("Compatible Nimian Manufacture Guns" . (("ignore" . #t)))
     ("Removes Nether Creatures" . (("ignore" . #t)))
-    ("Cataclysm++" . (("ignore" . #t)))
+    ("Cataclysm++" . (("name" . "CataclysmPlusPlus")
+                      ("version" . "2020-10-12")
+                      ("url" . ,(cut regexp-replace #/(?<=archive\/)master(?=\.zip$)/ <>
+                                     "91ff91998f865f87d43f2c1e31ec9040e3fe2fde"))))
     ("Cataclysm++ [0.D Stable]" . (("ignore" . #t)))
     ("BL9" . (("ignore" . #t)))
     ("Mining Mod" . (("ignore" . #t)))

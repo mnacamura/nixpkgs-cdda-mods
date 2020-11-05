@@ -21,7 +21,7 @@ overlay, feel free to make an issue or pull request.
 - [ ] Jury-Rigged Robots
 - [ ] Compatible Nimian Manufacture Guns
 - [ ] Removes Nether Creatures
-- [ ] Cataclysm++
+- [x] Cataclysm++
 - [ ] Cataclysm++ [0.D Stable]
 - [ ] BL9
 - [ ] Mining Mod
