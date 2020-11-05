@@ -77,11 +77,15 @@
            [version (or (update "version")
                         *fallback-version*)]
            [url (update "url")]
+           [ext (rxmatch-case url
+                  (#/\.zip$/ (e) e)
+                  (else (error "Unknown file extention:" url)))]
            [homepage (update "homepage")]
            [sha256 (or (update "sha256")
                        (case type
                          ((direct_download)
-                          (process-output->string `(nix-prefetch-url ,url)))
+                          (process-output->string
+                            `(nix-prefetch-url --name ,#"~|name|-~|version|~|ext|" ,url)))
                          ((browser_download)
                           (error "Missing sha256 checksum, must be provided in overrides"))
                          (else
@@ -98,11 +102,12 @@
                           ,@(case type
                               ((direct_download)
                                (list "  src = fetchurl {"
+                                     #"    name = \"~|name|-~|version|~|ext|\";"
                                      #"    url = \"~|url|\";"
                                      #"    sha256 = \"~|sha256|\";"))
                               ((browser_download)
                                (list "  src = requireFile {"
-                                     #"    name = \"~|name|-~|version|\";"
+                                     #"    name = \"~|name|-~|version|~|ext|\";"
                                      #"    url = \"~|url|\";"
                                      #"    sha256 = \"~|sha256|\";"))
                               (else
