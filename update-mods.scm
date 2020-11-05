@@ -12,6 +12,57 @@
 (define-constant *fallback-version*
   (date->string (current-date) "~Y-~m-~d"))
 
+(define-constant *mod-overrides*
+  `(("Artyoms' Gun Emporium" . (("name" . "ArtyomsGunEmporium")
+                                ("version" . "2016-11-03")
+                                ("url" . "https://www.dropbox.com/s/iudqj6ksnpo4i2r/Artyoms%27%20Gun%20Emporium.zip")
+                                ("homepage" . ,(cut regexp-replace #/$/ <> "/494"))))
+    ("Artyoms' Gun Emporium - Reloaded" . (("ignore" . #t)))
+    ("EXTENDED_BUILDINGS" . (("ignore" . #t)))
+    ("ZSFIXED_C:DDA Extra Professions & Gears" . (("ignore" . #t)))
+    ("Jury-Rigged Robots" . (("ignore" . #t)))
+    ("Compatible Nimian Manufacture Guns" . (("ignore" . #t)))
+    ("Removes Nether Creatures" . (("ignore" . #t)))
+    ("Cataclysm++" . (("ignore" . #t)))
+    ("Cataclysm++ [0.D Stable]" . (("ignore" . #t)))
+    ("BL9" . (("ignore" . #t)))
+    ("Mining Mod" . (("ignore" . #t)))
+    ("Packaging" . (("ignore" . #t)))
+    ("Parks and Rec Building Pack" . (("ignore" . #t)))
+    ("Mutation Changes" . (("ignore" . #t)))
+    ("No Recreationals" . (("ignore" . #t)))
+    ("Whaleys Small Town Building Pack" . (("ignore" . #t)))
+    ("PKs Rebalancing [build > 8098]" . (("ignore" . #t)))
+    ("Oa's Additional Buildings mod" . (("ignore" . #t)))
+    ("Fuji's More Buildings" . (("ignore" . #t)))
+    ("More City Locations" . (("ignore" . #t)))
+    ("No Makeshift Firearms" . (("ignore" . #t)))
+    ("Wintertime Classes" . (("ignore" . #t)))
+    ("Storage Battery Conversions" . (("ignore" . #t)))
+    ("Craft Ammo Magazines & Belt Links" . (("ignore" . #t)))
+    ("Craft Ammo Mags - ERG" . (("ignore" . #t)))
+    ("Dark Days Ahead: Lua" . (("ignore" . #t)))
+    ("Cars to Wrecks" . (("ignore" . #t)))
+    ("Ninja MOD" . (("ignore" . #t)))
+    ("Draco's Dog Mod" . (("ignore" . #t)))
+    ("Big River Building Pack" . (("ignore" . #t)))
+    ("Seedy Spots Building Pack" . (("ignore" . #t)))
+    ("Whaleys Big Ol' Building Pack" . (("ignore" . #t)))
+    ("More Builings & Locations!" . (("ignore" . #t)))
+    ("Bootleg Walkers" . (("ignore" . #t)))
+    ("Beta National Guard Camp, Aggregate's edit" . (("ignore" . #t)))
+    ("No Freeze" . (("ignore" . #t)))
+    ("Gun Cotton" . (("ignore" . #t)))
+    ("Secronom" . (("ignore" . #t)))
+    ("Vampiric Stuff" . (("ignore" . #t)))
+    ("Hydroponics" . (("ignore" . #t)))
+    ("Nechronica Redux" . (("ignore" . #t)))
+    ("No Zombies" . (("ignore" . #t)))
+    ("More Survivor Stuff" . (("ignore" . #t)))
+    ("XEAS" . (("ignore" . #t)))
+    ("Easy CBM Mods" . (("ignore" . #t)))
+    ("Useful Helicopters" . (("ignore" . #t)))))
+
 (define-constant *soundpack-overrides*
   `(("ChestHole" . (("version" . "2015-12-12")
                     ;; Remember the three checksums below because download speed from chezzo.com is
@@ -61,6 +112,7 @@
 
 (define (build-mod class datum :optional (indent 2))
   (let1 override (assoc-ref (case class
+                              ((mod) *mod-overrides*)
                               ((soundpack) *soundpack-overrides*)
                               ((tileset) *tileset-overrides*)
                               (else (error "Unknown mod class:" class)))
@@ -93,6 +145,7 @@
            [mod-root (update "mod_root")])
       (string-join (map (pa$ string-append (make-string indent #\ ))
                         `(,(let1 class (case class
+                                         ((mod) "Mod")
                                          ((soundpack) "SoundPack")
                                          ((tileset) "TileSet")
                                          (else (error "Unknown mod class:" class)))
@@ -125,6 +178,7 @@
 (define (build-mods class data)
   (let1 data (remove (^x (let* ([name (assoc-ref x "name")]
                                 [override (assoc-ref (case class
+                                                       ((mod) *mod-overrides*)
                                                        ((soundpack) *soundpack-overrides*)
                                                        ((tileset) *tileset-overrides*)
                                                        (else (error "Unknown mod class:" class)))
@@ -139,6 +193,9 @@
                  "\n")))
 
 (define (main _)
+  (with-output-to-file "mods.nix"
+                       (lambda ()
+                         (print (build-mods 'mod (get-data-from-cddagl-repo "mods")))))
   (with-output-to-file "soundpacks.nix"
                        (lambda ()
                          (print (build-mods 'soundpack (get-data-from-cddagl-repo "soundpacks")))))

@@ -8,6 +8,7 @@ let
   };
 
   newPkgs = {
+    mod = super.callPackage ./mods.nix {};
     soundpack = super.callPackage ./soundpacks.nix {};
     tileset = super.callPackage ./tilesets.nix {};
   };

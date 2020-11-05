@@ -14,7 +14,7 @@ overlay, feel free to make an issue or pull request.
 
 ### Mods
 
-- [ ] Artyoms' Gun Emporium
+- [x] Artyoms' Gun Emporium
 - [ ] Artyoms' Gun Emporium - Reloaded
 - [ ] EXTENDED_BUILDINGS
 - [ ] ZSFIXED_C:DDA Extra Professions & Gears
