@@ -1,4 +1,4 @@
-# A Nixpkgs overlay of Cataclysm DDA mods, soundpacks, and tilesets
+# Nixpkgs overlay for Cataclysm DDA mods, soundpacks, and tilesets
 
 [Cataclysm: Dark Days Ahead](https://cataclysmdda.org) can be played with
 numerous mods, soundpacks, and tilesets. At the moment, most of them are not
