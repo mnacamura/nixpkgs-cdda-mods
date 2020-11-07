@@ -18,106 +18,112 @@
           (let1 obj (parse-json-string body)
             (values (rxmatch-substring (#/^\d{4}-\d{2}-\d{2}/ (~ obj "commit" "committer" "date")))
                     (~ obj "sha"))))
-        (error "Failed to get github last commit info:" body))))
+        (error #"Failed to get github commit info for ~|owner|/~|repo|:" body))))
 
-(define (build-mod class datum :optional (indent 2))
-  (let* ([mod-name (ref datum "mod_name")]
-         [version (ref datum "version" #f)]
-         [download-type (string->symbol (ref datum "download_type"))]
-         [url (ref datum "url" #f)]
-         [ext (if url
-                  (rxmatch-case url
-                    (#/\.zip$/ (e) e)
-                    (else (error "Unknown file extention:" url))))]
-         [sha256 (ref datum "sha256" #f)]
-         [homepage (ref datum "homepage")]
-         [file_name (ref datum "file_name" #f)]
-         [owner (ref datum "owner" #f)]
-         [repo (ref datum "repo" #f)]
-         [rev (ref datum "rev" #f)]
-         [mod-root (ref datum "mod_root" #f)])
-    (let-values ([(version rev)
-                  (case download-type
-                    [(direct browser)
-                     (if version
-                         (values version #f)
-                         (error "Missing \"version\" in direct/browser download"))]
-                    [(github)
-                     (cond
-                       [version
-                         (if rev
-                             (values version rev)
-                             (error "Missing \"rev\" while \"version\" is provided in github download"))]
-                       [else
-                         (if (and owner repo)
-                             (get-github-commit-date owner repo rev)
-                             (error "Missing \"owner\" and/or \"repo\" in github download"))])]
-                    [else
-                      (error "Unknown download type:" download-type)])])
-      (let1 sha256 (case download-type
-                     [(direct)
-                      (or sha256
-                          (if url
-                              (process-output->string
-                               `(nix-prefetch-url --name ,#"~|mod-name|-~|version|~|ext|" ,url))
-                              (error "Missing \"url\" in direct download")))]
-                     [(browser)
-                      (or sha256
-                          (error "Missing \"sha256\" in browser download"))]
-                     [(github)
-                      (or sha256
-                          (process-output->string
-                            `(nix-prefetch-url
-                               --unpack --name ,#"~|mod-name|-~|version|"
-                               ,#"https://github.com/~|owner|/~|repo|/archive/~|rev|.tar.gz")))])
-        (string-join (map (pa$ string-append (make-string indent #\ ))
-                          `(,(let1 class (case class
-                                           [(mod) "Mod"]
-                                           [(soundpack) "SoundPack"]
-                                           [(tileset) "TileSet"]
-                                           [else (error "Unknown mod class:" class)])
-                               #"~|mod-name| = cataclysmDDA.build~|class| {")
-                            ,#"  modName = \"~|mod-name|\";"
-                            ,#"  version = \"~|version|\";"
-                            ,@(case download-type
-                                [(direct)
-                                 (list "  src = fetchurl {"
-                                       #"    name = \"~|mod-name|-~|version|~|ext|\";"
-                                       #"    url = \"~|url|\";"
-                                       #"    sha256 = \"~|sha256|\";")]
-                                [(browser)
-                                 (list "  src = requireFile {"
-                                       #"    name = \"~|mod-name|-~|version|~|ext|\";"
-                                       #"    url = \"~|url|\";"
-                                       #"    sha256 = \"~|sha256|\";")]
-                                [(github)
-                                 (list "  src = fetchFromGitHub {"
-                                       #"    owner = \"~|owner|\";"
-                                       #"    repo = \"~|repo|\";"
-                                       #"    rev = \"~|rev|\";"
-                                       #"    sha256 = \"~|sha256|\";")]
-                                [else
-                                  (error "Unknown download type:" download-type)])
-                            "  };"
-                            ,@(if (and url (#/\.zip$/ url))
-                                  '("  nativeBuildInputs = [ unzip ];")
-                                  '())
-                            ,@(if mod-root
-                                  `(,#"  modRoot = \"~|mod-root|\";")
-                                  '())
-                            "  meta = with lib; {"
-                            ,#"    homepage = \"~|homepage|\";"
-                            "  };"
-                            "}"))
-                     "\n")))))
+(define (%generate-nix-expr class datum :optional (indent 2))
+  (let ([mod-name (or (ref datum "mod_name" #f)
+                      (error "\"mod_name\" missing:" (hash-table->alist datum)))]
+        [version (ref datum "version" #f)]
+        [download-type (string->symbol (or (ref datum "download_type" #f)
+                                           (error "\"download_type\" missing:"
+                                                  (hash-table->alist datum))))]
+        [url (ref datum "url" #f)]
+        [sha256 (ref datum "sha256" #f)]
+        [file_name (ref datum "file_name" #f)]
+        [owner (ref datum "owner" #f)]
+        [repo (ref datum "repo" #f)]
+        [rev (ref datum "rev" #f)]
+        [homepage (or (ref datum "homepage" #f)
+                      (error "\"homepage\" missing:" (hash-table->alist datum)))]
+        [mod-root (ref datum "mod_root" #f)])
+    (let-values ([(version rev) (case download-type
+                                  [(direct browser)
+                                   (if version
+                                       (values version #f)
+                                       (error "\"version\" missing in direct/browser download:"
+                                              (hash-table->alist datum)))]
+                                  [(github)
+                                   (cond
+                                     [(and version rev)
+                                      (values version rev)]
+                                     [(and version (not rev))
+                                      (error "\"rev\" missing while \"version\" is pinned:"
+                                             (hash-table->alist datum))]
+                                     [(and owner repo)
+                                      (get-github-commit-date owner repo rev)]
+                                     [else
+                                       (error "\"owner\" and/or \"repo\" missing:"
+                                              (hash-table->alist datum))])]
+                                  [else
+                                    (error "Unknown download type:" download-type)])])
+      (let* ([ext (if url
+                      (rxmatch-case url
+                        (#/\.(zip|tar\.gz)$/ (e) e)
+                        (else (error "Unknown file extention:" url))))]
+             [sha256 (or sha256
+                         (case download-type
+                           [(direct)
+                            (if url
+                                (process-output->string
+                                  `(nix-prefetch-url --name ,#"~|mod-name|-~|version|~|ext|" ,url))
+                                (error "\"url\" missing in direct download:"
+                                       (hash-table->alist datum)))]
+                           [(browser)
+                            (error "\"sha256\" missing in browser download:"
+                                   (hash-table->alist datum))]
+                           [(github)
+                            (process-output->string
+                              `(nix-prefetch-url
+                                 --unpack --name ,#"~|mod-name|-~|version|"
+                                 ,#"https://github.com/~|owner|/~|repo|/archive/~|rev|.tar.gz"))]))]
+             [lines `(,(let1 class (case class
+                                     [(mod) "Mod"]
+                                     [(soundpack) "SoundPack"]
+                                     [(tileset) "TileSet"]
+                                     [else (error "Unknown mod class:" class)])
+                         #"~|mod-name| = cataclysmDDA.build~|class| {")
+                      ,#"  modName = \"~|mod-name|\";"
+                      ,#"  version = \"~|version|\";"
+                      ,@(case download-type
+                          [(direct)
+                           (list "  src = fetchurl {"
+                                 #"    name = \"~|mod-name|-~|version|~|ext|\";"
+                                 #"    url = \"~|url|\";"
+                                 #"    sha256 = \"~|sha256|\";")]
+                          [(browser)
+                           (list "  src = requireFile {"
+                                 #"    name = \"~|mod-name|-~|version|~|ext|\";"
+                                 #"    url = \"~|url|\";"
+                                 #"    sha256 = \"~|sha256|\";")]
+                          [(github)
+                           (list "  src = fetchFromGitHub {"
+                                 #"    owner = \"~|owner|\";"
+                                 #"    repo = \"~|repo|\";"
+                                 #"    rev = \"~|rev|\";"
+                                 #"    sha256 = \"~|sha256|\";")]
+                          [else
+                            (error "Unknown download type:" download-type)])
+                      "  };"
+                      ,@(cond
+                          [(and url (string= ".zip" ext))
+                           '("  nativeBuildInputs = [ unzip ];")]
+                          [else
+                            '()])
+                      ,@(if mod-root
+                            `(,#"  modRoot = \"~|mod-root|\";")
+                            '())
+                      "  meta = with lib; {"
+                      ,#"    homepage = \"~|homepage|\";"
+                      "  };"
+                      "};")])
+        (string-join (map (pa$ string-append (make-string indent #\ )) lines) "\n")))))
 
-(define (build-mods class data)
-  (string-join `("{ lib, cataclysmDDA, fetchurl, fetchFromGitHub, unzip }:\n\n{"
-                 ,@(map (.$ (cut string-append <> ";")
-                            (cut build-mod class <>))
-                        (remove (cut ref <> "ignore" #f) data))
-                 "}")
-               "\n"))
+(define (generate-nix-exprs class data)
+  (let1 data (remove (cut ref <> "ignore" #f) data)
+    (string-join `("{ lib, cataclysmDDA, fetchurl, fetchFromGitHub, unzip }:\n\n{"
+                   ,@(map (pa$ %generate-nix-expr class) data)
+                   "}")
+                 "\n")))
 
 (define (main _)
   (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
@@ -125,8 +131,8 @@
           [soundpacks (with-input-from-file "soundpacks.json" (cut parse-json))]
           [tilesets (with-input-from-file "tilesets.json" (cut parse-json))])
       (with-output-to-file "mods.nix"
-                           (cut print (build-mods 'mod mods)))
+                           (cut print (generate-nix-exprs 'mod mods)))
       (with-output-to-file "soundpacks.nix"
-                           (cut print (build-mods 'soundpack soundpacks)))
+                           (cut print (generate-nix-exprs 'soundpack soundpacks)))
       (with-output-to-file "tilesets.nix"
-                           (cut print (build-mods 'tileset tilesets))))))
+                           (cut print (generate-nix-exprs 'tileset tilesets))))))
