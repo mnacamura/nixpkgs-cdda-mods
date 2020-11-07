@@ -3,15 +3,29 @@ self: super:
 let
   inherit (super) lib;
 
-  oldPkgs = {
+  pkgs' = lib.recursiveUpdate {
     inherit (super.cataclysmDDA.pkgs) mod soundpack tileset;
-  };
-
-  newPkgs = {
+  } {
     mod = super.callPackage ./mods.nix {};
     soundpack = super.callPackage ./soundpacks.nix {};
     tileset = super.callPackage ./tilesets.nix {};
   };
+
+  pkgs = lib.makeExtensible (_: pkgs');
+
+  pkgsFor = build:
+  let
+    availablePkgs = lib.mapAttrs (_: mods: lib.filterAttrs (availableFor build) mods) pkgs';
+  in
+  lib.makeExtensible (_: availablePkgs);
+
+  availableFor = build: _: mod:
+  if build.isTiles then
+    mod.forTiles or false
+  else if build.isCurses then
+    mod.forCurses or false
+  else
+    false;
 
   updatePkgs = build:
   let
@@ -23,28 +37,11 @@ let
     });
   in
   self;
-
-  pkgsFor = build:
-  let
-    pkgs = lib.recursiveUpdate oldPkgs newPkgs;
-    pkgs' = lib.mapAttrs (_: mods: lib.filterAttrs (availableFor build) mods) pkgs;
-  in
-  lib.makeExtensible (_: pkgs');
-
-  availableFor = build: _: mod:
-  if isNull build then
-    true
-  else if build.isTiles then
-    mod.forTiles or false
-  else if build.isCurses then
-    mod.forCurses or false
-  else
-    false;
 in
 
 {
   cataclysmDDA = super.cataclysmDDA // (with super.cataclysmDDA; {
-    pkgs = pkgsFor null;
+    inherit pkgs;
 
     stable = {
       tiles = updatePkgs stable.tiles;
