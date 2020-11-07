@@ -134,6 +134,4 @@ Example:
 
 ## License
 
-Copyright (c) 2018--2020 Mitsuhiro Nakamura
-
-This software is distributed under the MIT license.
+This software is distributed under [the MIT license](./LICENSE).
