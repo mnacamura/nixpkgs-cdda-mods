@@ -7,8 +7,8 @@
     src = fetchFromGitHub {
       owner = "SomeDeadGuy";
       repo = "UndeadPeopleTileset";
-      rev = "953063d0902b2716c12935245e8e496c5968ae59";
-      sha256 = "1w2c8sqjwj2q42ywakiad6my9s57la8sf7rxv8nmv50y3hiz9r8m";
+      rev = "513e1af96cbd01aea919d3816fd9efbea47f1c0b";
+      sha256 = "0b50hwwhrfrpfs92vj25xk3ql3y54raahfxx60vq1r069kfzffpb";
     };
     modRoot = "MSX++UnDeadPeopleEdition";
     meta = with lib; {
