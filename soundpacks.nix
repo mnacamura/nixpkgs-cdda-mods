@@ -1,4 +1,4 @@
-{ lib, cataclysmDDA, fetchurl, unzip }:
+{ lib, cataclysmDDA, fetchurl, fetchFromGitHub, unzip }:
 
 {
   ChestHole = cataclysmDDA.buildSoundPack {
@@ -57,12 +57,12 @@
   budg3 = cataclysmDDA.buildSoundPack {
     modName = "budg3";
     version = "1.3";
-    src = fetchurl {
-      name = "budg3-1.3.zip";
-      url = "https://github.com/budg3/CDDA-Soundpack/archive/v1.3.zip";
-      sha256 = "1i3hh9nrkw20y0py4lacfghhlqva3dwx8xpfbi3rcm6qsp08ri6c";
+    src = fetchFromGitHub {
+      owner = "budg3";
+      repo = "CDDA-Soundpack";
+      rev = "v1.3";
+      sha256 = "1p955g7yxi3gw7a21w6x929wmjblcq526kzx8fzk57mhzs7vd2zx";
     };
-    nativeBuildInputs = [ unzip ];
     modRoot = "CDDA-Soundpack";
     meta = with lib; {
       homepage = "https://discourse.cataclysmdda.org/t/cdda-soundpack/15329";
@@ -70,26 +70,26 @@
   };
   atsign = cataclysmDDA.buildSoundPack {
     modName = "atsign";
-    version = "0.2";
-    src = fetchurl {
-      name = "atsign-0.2.zip";
-      url = "https://github.com/damalsk/damalsksoundpack/archive/v0.2.zip";
-      sha256 = "1xn0r7yq9pvsfwln6pqi7zj3za6hd10qcy7hq5xy82a47n26dhfw";
+    version = "2019-06-07";
+    src = fetchFromGitHub {
+      owner = "damalsk";
+      repo = "damalsksoundpack";
+      rev = "a69ed2bb65350b2700004b42fca02a5559fd8dad";
+      sha256 = "1s6rvanljl1rkyz8xj1ypqgs43adhm2iackq3zngyfmmgiyj80gz";
     };
-    nativeBuildInputs = [ unzip ];
     meta = with lib; {
       homepage = "https://discourse.cataclysmdda.org/t/soundpack-s-soundpack-vehicle-sounds-licensed-music-and-more/20131";
     };
   };
   Otopack = cataclysmDDA.buildSoundPack {
     modName = "Otopack";
-    version = "2020-10-28";
-    src = fetchurl {
-      name = "Otopack-2020-10-28.zip";
-      url = "https://github.com/Kenan2000/Otopack-Mods-Updates/archive/29a8421d4951e80a280928a595a45084dba1b5d4.zip";
-      sha256 = "11gy9vasmffpjgshl3jb7w8x6x5iyh4byhh4smszzjs23xziqkpg";
+    version = "2020-11-05";
+    src = fetchFromGitHub {
+      owner = "Kenan2000";
+      repo = "Otopack-Mods-Updates";
+      rev = "53369d6c6beed58937dfe4bbcba98a260119b1d2";
+      sha256 = "1kz6brdfg3g7xkdf1algspz42nvsy4bw5y14qasjrnan1vrlr673";
     };
-    nativeBuildInputs = [ unzip ];
     modRoot = "Otopack+ModsUpdates";
     meta = with lib; {
       homepage = "https://github.com/Kenan2000/Otopack-Mods-Updates";

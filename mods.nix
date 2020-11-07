@@ -1,4 +1,4 @@
-{ lib, cataclysmDDA, fetchurl, unzip }:
+{ lib, cataclysmDDA, fetchurl, fetchFromGitHub, unzip }:
 
 {
   ArtyomsGunEmporium = cataclysmDDA.buildMod {
@@ -16,13 +16,13 @@
   };
   CataclysmPlusPlus = cataclysmDDA.buildMod {
     modName = "CataclysmPlusPlus";
-    version = "2020-10-12";
-    src = fetchurl {
-      name = "CataclysmPlusPlus-2020-10-12.zip";
-      url = "https://github.com/Noctifer-de-Mortem/nocts_cata_mod/archive/91ff91998f865f87d43f2c1e31ec9040e3fe2fde.zip";
-      sha256 = "1j1ra5ych8k03hny7qa0zk110lr2rd4nllw7p6mzjf7gzdl7l50w";
+    version = "2020-10-11";
+    src = fetchFromGitHub {
+      owner = "Noctifer-de-Mortem";
+      repo = "nocts_cata_mod";
+      rev = "91ff91998f865f87d43f2c1e31ec9040e3fe2fde";
+      sha256 = "1d3k5q9999bqmc11abffnjhlr69mbvxyw9qkmwi9dn00904x0ws7";
     };
-    nativeBuildInputs = [ unzip ];
     meta = with lib; {
       homepage = "https://discourse.cataclysmdda.org/t/cataclysm-mod/10523";
     };

@@ -1,0 +1,17 @@
+[
+    {
+        "mod_name": "ArtyomsGunEmporium",
+        "version": "2016-11-03",
+        "download_type": "direct",
+        "url": "https://www.dropbox.com/s/iudqj6ksnpo4i2r/Artyoms%27%20Gun%20Emporium.zip",
+        "sha256": "02pja0sp7jj6sk29jq65jm5rnbh0vnlgfflr0p8ymcrk9y9q5jkr",
+        "homepage": "https://discourse.cataclysmdda.org/t/artyoms-gun-emporium-update-2-hotfix-1-holy-shit/10035/494"
+    },
+    {
+        "mod_name": "CataclysmPlusPlus",
+        "download_type": "github",
+        "owner": "Noctifer-de-Mortem",
+        "repo": "nocts_cata_mod",
+        "homepage": "https://discourse.cataclysmdda.org/t/cataclysm-mod/10523"
+    }
+]

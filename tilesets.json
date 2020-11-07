@@ -1,0 +1,10 @@
+[
+    {
+        "mod_name": "UndeadPeople",
+        "download_type": "github",
+        "owner": "SomeDeadGuy",
+        "repo": "UndeadPeopleTileset",
+        "homepage": "https://github.com/SomeDeadGuy/UndeadPeopleTileset",
+        "mod_root": "MSX++UnDeadPeopleEdition"
+    }
+]
