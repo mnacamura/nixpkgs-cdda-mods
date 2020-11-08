@@ -37,11 +37,13 @@ let
     });
   in
   self;
+
+  jenkins = self.callPackage ./jenkins.nix {};
 in
 
 {
   cataclysmDDA = super.cataclysmDDA // (with super.cataclysmDDA; {
-    inherit pkgs;
+    inherit pkgs jenkins;
 
     stable = {
       tiles = updatePkgs stable.tiles;
