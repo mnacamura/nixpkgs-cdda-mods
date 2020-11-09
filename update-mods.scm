@@ -2,23 +2,11 @@
 
 (use gauche.collection)
 (use gauche.parameter)
-(use gauche.process)
-(use rfc.http)
+(use github)
+(use nix-prefetch)
 (use rfc.json)
 (use rfc.tls)
-(default-tls-class <mbed-tls>)
 (use srfi-13)
-(use srfi-19)
-
-(define (get-github-commit-date owner repo :optional rev)
-  (let-values ([(status _ body) (http-get "api.github.com"
-                                          #"/repos/~|owner|/~|repo|/commits/~(or rev 'master)")])
-    (if (string= status "200")
-        (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
-          (let1 obj (parse-json-string body)
-            (values (rxmatch-substring (#/^\d{4}-\d{2}-\d{2}/ (~ obj "commit" "committer" "date")))
-                    (~ obj "sha"))))
-        (error #"Failed to get github commit info for ~|owner|/~|repo|:" body))))
 
 (define (%generate-nix-expr class datum :optional (indent 2))
   (let ([mod-name (or (ref datum "mod_name" #f)
@@ -50,7 +38,7 @@
                                       (error "\"rev\" missing while \"version\" is pinned:"
                                              (hash-table->alist datum))]
                                      [(and owner repo)
-                                      (get-github-commit-date owner repo rev)]
+                                      (github-get-commit-date owner repo rev)]
                                      [else
                                        (error "\"owner\" and/or \"repo\" missing:"
                                               (hash-table->alist datum))])]
@@ -64,18 +52,20 @@
                          (case download-type
                            [(direct)
                             (if url
-                                (process-output->string
-                                  `(nix-prefetch-url --name ,#"~|mod-name|-~|version|~|ext|" ,url))
+                                (nix-prefetch-url/cache url :name #"~|mod-name|-~|version|~|ext|")
                                 (error "\"url\" missing in direct download:"
                                        (hash-table->alist datum)))]
                            [(browser)
                             (error "\"sha256\" missing in browser download:"
                                    (hash-table->alist datum))]
                            [(github)
-                            (process-output->string
-                              `(nix-prefetch-url
-                                 --unpack --name ,#"~|mod-name|-~|version|"
-                                 ,#"https://github.com/~|owner|/~|repo|/archive/~|rev|.tar.gz"))]))]
+                            (if (and owner repo rev)
+                                (nix-prefetch-url/cache
+                                  #"https://github.com/~|owner|/~|repo|/archive/~|rev|.tar.gz"
+                                  :unpack? #t
+                                  :name #"~|mod-name|-~|version|")
+                                (error "\"owner\", \"repo\", and/or \"rev\" missing:"
+                                       (hash-table->alist datum)))]))]
              [lines `(,(let1 class (case class
                                      [(mod) "Mod"]
                                      [(soundpack) "SoundPack"]
@@ -126,6 +116,7 @@
                  "\n")))
 
 (define (main _)
+  (default-tls-class <mbed-tls>)
   (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
     (let ([mods (with-input-from-file "mods.json" (cut parse-json))]
           [soundpacks (with-input-from-file "soundpacks.json" (cut parse-json))]

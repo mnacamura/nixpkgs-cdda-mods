@@ -42,17 +42,17 @@ let
 in
 
 {
-  cataclysmDDA = super.cataclysmDDA // (with super.cataclysmDDA; {
+  cataclysmDDA = super.cataclysmDDA // {
     inherit pkgs jenkins;
 
-    stable = {
+    stable = with super.cataclysmDDA; {
       tiles = updatePkgs stable.tiles;
       curses = updatePkgs stable.curses;
     };
 
-    git = {
+    git = with super.cataclysmDDA; {
       tiles = updatePkgs git.tiles;
       curses = updatePkgs git.curses;
     };
-  });
+  };
 }

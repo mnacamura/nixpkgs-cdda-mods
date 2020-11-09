@@ -16,5 +16,6 @@ with import nixpkgs {};
 mkShell {
   buildInputs = [ gauche ];
 
+  GAUCHE_LOAD_PATH = "./lib";
   GAUCHE_READ_EDIT = true;
 }
