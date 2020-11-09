@@ -47,13 +47,17 @@ You can install Cataclysm: DDA with mods as explained in
 Example:
 
 ```nix
-((cataclysmDDA.git.tiles.override {
-  version = "2020-11-03";
-  rev = "97896c2bc98aac1d47f94ff92d0f43670365ef5a";
-  sha256 = "1qv30g8ahdgrbbp1kalwnn51mfb66a41dqmm0xifgw6r0pf246fk";
-}).overrideAttrs (_: {
-  enableParallelBuilding = true;
-})).withMods (mods: with mods; [
+let
+  # `updatePkgs` is required after you applied `override` or `overrideAttrs`
+  # to your C:DDA derivation. It fixes some incorrect attributes remaining
+  # after overriding.
+  myCDDA = with cataclysmDDA; updatePkgs (git.tiles.override {
+    version = "2020-11-03";
+    rev = "97896c2bc98aac1d47f94ff92d0f43670365ef5a";
+    sha256 = "1qv30g8ahdgrbbp1kalwnn51mfb66a41dqmm0xifgw6r0pf246fk";
+  });
+in
+myCDDA.withMods (mods: with mods; [
   tileset.UndeadPeople
   soundpack.Otopack
 ])
