@@ -1,7 +1,7 @@
 self: super:
 
 let
-  inherit (super) lib;
+  inherit (self) lib;
 
   pkgs' = lib.recursiveUpdate {
     inherit (super.cataclysmDDA.pkgs) mod soundpack tileset;
@@ -29,14 +29,14 @@ let
 
   updatePkgs = build:
   let
-    self = build.overrideAttrs (old: {
+    this = build.overrideAttrs (old: {
       passthru = old.passthru // {
-        pkgs = pkgsFor self;
-        withMods = super.cataclysmDDA.wrapCDDA self;
+        pkgs = pkgsFor this;
+        withMods = self.cataclysmDDA.wrapCDDA this;
       };
     });
   in
-  self;
+  this;
 
   jenkins = self.callPackage ./generated/jenkins.nix {};
 in
