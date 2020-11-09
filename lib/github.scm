@@ -22,8 +22,9 @@
             (map (.$ rxmatch-substring  #/cdda-jenkins-b\d+/ (cut ref <> "ref")) obj))
           (error #"Failed to get github cdda jenkins tags:" body)))))
 
-(define (github-get-commit-date owner repo :optional rev)
-  (let1 req #"/repos/~|owner|/~|repo|/commits/~(or rev 'master)"
+(define (github-get-commit-date owner repo :optional (rev #f))
+  (let*([rev (or rev "master")]
+        [req #"/repos/~|owner|/~|repo|/commits/~|rev|"])
     (let-values ([(status _ body) (github-get req :accept "application/vnd.github.v3+json")])
       (if (string= status "200")
           (let1 obj (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
