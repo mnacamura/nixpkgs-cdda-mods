@@ -1,4 +1,4 @@
 # Nix related stuff
 result*
-.envrc
+.envrc*
 .direnv/
