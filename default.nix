@@ -62,13 +62,13 @@ in
     inherit updatePkgs;
 
     stable = with super.cataclysmDDA; {
-      tiles = updatePkgs stable.tiles;
-      curses = updatePkgs stable.curses;
+      tiles = updatePkgs (stable.tiles.overrideAttrs (_: { enableParallelBuilding = true; }));
+      curses = updatePkgs (stable.curses.overrideAttrs (_: { enableParallelBuilding = true; }));
     };
 
     git = with super.cataclysmDDA; {
-      tiles = updatePkgs git.tiles;
-      curses = updatePkgs git.curses;
+      tiles = updatePkgs (git.tiles.overrideAttrs (_: { enableParallelBuilding = true; }));
+      curses = updatePkgs (git.curses.overrideAttrs (_: { enableParallelBuilding = true; }));
     };
   };
 }
