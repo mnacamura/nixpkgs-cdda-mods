@@ -128,4 +128,5 @@
       (with-output-to-file (build-path "./generated" "soundpacks.nix")
                            (cut print (generate-nix-exprs 'soundpack soundpacks)))
       (with-output-to-file (build-path "./generated" "tilesets.nix")
-                           (cut print (generate-nix-exprs 'tileset tilesets))))))
+                           (cut print (generate-nix-exprs 'tileset tilesets)))))
+  (exit))
