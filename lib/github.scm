@@ -10,8 +10,10 @@
 
 (select-module github)
 
-(define (github-get req . args)
-  (apply http-get `("api.github.com" ,req ,@args)))
+(define (github-get req
+                    :key (auth-token (sys-getenv "GITHUB_AUTH_TOKEN")) :allow-other-keys
+                    :rest args)
+  (apply http-get `("api.github.com" ,req :authorization #"token ~|auth-token|" ,@args)))
 
 (define (github-get-cdda-jenkins-tags)
   (let1 req "/repos/CleverRaven/Cataclysm-DDA/git/matching-refs/tags/cdda-jenkins-b"
