@@ -6,7 +6,7 @@
   (export nix-prefetch-url-path
           sha256-cache-path
           load-sha256-cache!
-          write-sha256-cache!
+          save-sha256-cache!
           nix-prefetch-url/cache!))
 
 (select-module nix-prefetch)
@@ -24,7 +24,7 @@
           (or (call-with-input-file (sha256-cache-path) parse-json)
               (make-tree-map string-comparator)))))
 
-(define (write-sha256-cache!)
+(define (save-sha256-cache!)
   (with-output-to-file (sha256-cache-path) (cut construct-json %sha256-cache)))
 
 (define (nix-prefetch-url/cache! url :key (unpack? #f) (name #f))

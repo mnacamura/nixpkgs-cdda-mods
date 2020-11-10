@@ -50,5 +50,5 @@
                    *builds-to-keep*)
     (with-output-to-file (build-path "generated" "jenkins.nix")
                          (cut print (generate-nix-exprs tags))))
-  (write-sha256-cache!)
+  (save-sha256-cache!)
   (exit))

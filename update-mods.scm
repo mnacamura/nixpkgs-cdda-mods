@@ -130,5 +130,5 @@
                            (cut print (generate-nix-exprs 'soundpack soundpacks)))
       (with-output-to-file (build-path "generated" "tilesets.nix")
                            (cut print (generate-nix-exprs 'tileset tilesets)))))
-  (write-sha256-cache!)
+  (save-sha256-cache!)
   (exit))
