@@ -14,7 +14,7 @@
   (let* ([version (rxmatch-substring (#/(?<=cdda-)jenkins-b\d+/ (~ tag "tag")))]
          [build-number (rxmatch-substring (#/(?<=cdda-jenkins-)b\d+/ (~ tag "tag")))]
          [rev (~ tag "rev")]
-         [sha256 (nix-prefetch-url/cache
+         [sha256 (nix-prefetch-url/cache!
                    #"https://github.com/CleverRaven/Cataclysm-DDA/archive/~|rev|.tar.gz"
                    :unpack? #t
                    :name #"cataclysm-dda-git-~|version|")]
@@ -45,8 +45,10 @@
 
 (define (main _)
   (default-tls-class <mbed-tls>)
+  (load-sha256-cache!)
   (let1 tags (take (%sort-jenkins-tags (github-get-cdda-jenkins-tags))
                    *builds-to-keep*)
     (with-output-to-file (build-path "./generated" "jenkins.nix")
                          (cut print (generate-nix-exprs tags))))
+  (write-sha256-cache!)
   (exit))

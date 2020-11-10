@@ -53,7 +53,7 @@
                          (case download-type
                            [(direct)
                             (if url
-                                (nix-prefetch-url/cache url :name #"~|mod-name|-~|version|~|ext|")
+                                (nix-prefetch-url/cache! url :name #"~|mod-name|-~|version|~|ext|")
                                 (error "\"url\" missing in direct download:"
                                        (hash-table->alist datum)))]
                            [(browser)
@@ -61,7 +61,7 @@
                                    (hash-table->alist datum))]
                            [(github)
                             (if (and owner repo rev)
-                                (nix-prefetch-url/cache
+                                (nix-prefetch-url/cache!
                                   #"https://github.com/~|owner|/~|repo|/archive/~|rev|.tar.gz"
                                   :unpack? #t
                                   :name #"~|mod-name|-~|version|")
@@ -119,14 +119,16 @@
 
 (define (main _)
   (default-tls-class <mbed-tls>)
+  (load-sha256-cache!)
   (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
     (let ([mods (with-input-from-file "mods.json" (cut parse-json))]
           [soundpacks (with-input-from-file "soundpacks.json" (cut parse-json))]
           [tilesets (with-input-from-file "tilesets.json" (cut parse-json))])
-      (with-output-to-file (build-path "./generated" "mods.nix")
+      (with-output-to-file (build-path "generated" "mods.nix")
                            (cut print (generate-nix-exprs 'mod mods)))
-      (with-output-to-file (build-path "./generated" "soundpacks.nix")
+      (with-output-to-file (build-path "generated" "soundpacks.nix")
                            (cut print (generate-nix-exprs 'soundpack soundpacks)))
-      (with-output-to-file (build-path "./generated" "tilesets.nix")
+      (with-output-to-file (build-path "generated" "tilesets.nix")
                            (cut print (generate-nix-exprs 'tileset tilesets)))))
+  (write-sha256-cache!)
   (exit))
