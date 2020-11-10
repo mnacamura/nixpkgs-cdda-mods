@@ -50,6 +50,12 @@ if [ "$create_commit" = no -a "$deploy_update" = yes ]; then
     err "Are you sure to deploy update without creating any commit?"
 fi
 
+msg "Checking out upstream changes..."
+if ! git pull "$remote_name" "$remote_branch"; then
+    err "...failed"
+fi
+msg "...done"
+
 msg "Updating jenkins builds..."
 if ! ./update-jenkins.scm; then
     err "...failed"
