@@ -76,7 +76,7 @@ cataclysmDDA.jenkins.latest.tiles
 cataclysmDDA.jenkins.latest.curses
 ```
 
-Older experimental builds are also predefined, up to 30 builds from the latest
+Older experimental builds are also predefined, up to 60 builds from the latest
 to older. Example:
 
 ```nix

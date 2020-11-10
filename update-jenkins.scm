@@ -8,7 +8,7 @@
 (use srfi-13)
 
 ;; Because there are thousands of jenkins build tags, we limit the number of builds to keep.
-(define-constant *builds-to-keep* 30)
+(define-constant *builds-to-keep* 60)
 
 (define (%generate-nix-expr tag :optional (indent 2))
   (let* ([version (rxmatch-substring (#/(?<=cdda-)jenkins-b\d+/ (~ tag "tag")))]
