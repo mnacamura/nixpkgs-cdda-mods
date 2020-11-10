@@ -2,10 +2,12 @@
 
 [Cataclysm: Dark Days Ahead](https://cataclysmdda.org) can be played with
 numerous mods, soundpacks, and tilesets. Currently, most of them are not
-yet provided in [nixpkgs](https://github.com/NixOS/nixpkgs).
+yet provided in the official [nixpkgs](https://github.com/NixOS/nixpkgs).
 
 This nixpkgs overlay is an attempt to improve the situation; it provides
-extra mods, soundpacks, and tilesets not available in nixpkgs.
+extra mods, soundpacks, and tilesets not available in nixpkgs. It also
+provides derivations for the recent experimental builds, making it easier
+to try the bleeding edge of Cataclysm: DDA.
 
 ## Installation
 
@@ -20,11 +22,11 @@ cd ~/.config/nixpkgs/overlays
 ln -s $SOMEWHERE/nixpkgs-cdda-mods
 ```
 
-After that, mods defined in the overlay will be visible in
-`cataclysmDDA.pkgs`.
+After that, mods, soundpacks, and tilesets defined in the overlay will be
+visible in `cataclysmDDA.pkgs`.
 
-If you like to use the overlay without polluting your environment, you can do
-something like this:
+If you'd like to use the overlay without polluting your environment, you can
+do something like this:
 
 ```nix
 let
@@ -65,8 +67,8 @@ myCDDA.withMods (mods: with mods; [
 
 ### Experimental builds
 
-The latest experimental build (at the time of the most recent update in this
-repo) is predefined at
+The latest experimental build (as of the most recent update in this repo) is
+available at
 
 ```nix
 # Tiles build
@@ -76,7 +78,7 @@ cataclysmDDA.jenkins.latest.tiles
 cataclysmDDA.jenkins.latest.curses
 ```
 
-Older experimental builds are also predefined, up to 60 builds from the latest
+Older experimental builds are also available, up to 60 builds from the latest
 to older. Example:
 
 ```nix
@@ -89,8 +91,8 @@ yourself on your machine.
 ## Development status
 
 As of now, the following mods, soundpacks, and tilesets are available. If you
-know any mod, soundpack, or tileset that should be available in this overlay,
-feel free to make an issue or pull request.
+know any mod, soundpack, or tileset that should be in this overlay, feel free
+to make an issue or pull request.
 
 ### Mods
 
@@ -143,21 +145,20 @@ feel free to make an issue or pull request.
 
 ### Soundpacks
 
-- [ ] CO.AG MusicPack
-- [x] Otopack
+- [x] Chesthole soundpack
+- [x] Chesthole Creative-Commons-compliant soundpack (ChestHoleCC)
+- [x] Chesthole Old-Timey Less Is More soundpack (ChestOldTimey)
+- [x] RRFSounds
+- [ ] 2ch soundpack
+- [x] CDDA soundpack
 - [x] @'s soundpack
-- [x] budg3's soundpack (CDDA-Soundpack)
-- [x] Chesthole Soundpack
-- [ ] Chesthole Resident Evil 4 Soundpack (ChestHoleRE4)
-- [x] Chesthole Creative-Commons-compliant Soundpack (ChestHoleCC)
-- [x] Chesthole Old-Timey Less Is More Soundpack (ChestOldTimey)
-- [x] RRF Soundpack
-- [ ] 2ch Soundpack
+- [ ] CO.AG MusicPack Redux
+- [x] Otopack
 
 ### Tilesets
 
-- [x] UNDEAD PEOPLE Tileset
-- [ ] Mod tilesets shipped with UNDEAD PEOPLE Tileset
+- [x] UndeadPeople tileset
+- [ ] Mod tilesets shipped with UndeadPeople tileset
 
 ## License
 
