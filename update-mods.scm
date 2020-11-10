@@ -11,11 +11,11 @@
 
 (define (%generate-nix-expr class datum :optional (indent 2))
   (let ([mod-name (or (ref datum "mod_name" #f)
-                      (error "\"mod_name\" missing:" (hash-table->alist datum)))]
+                      (error "\"mod_name\" missing:" (tree-map->alist datum)))]
         [version (ref datum "version" #f)]
         [download-type (string->symbol (or (ref datum "download_type" #f)
                                            (error "\"download_type\" missing:"
-                                                  (hash-table->alist datum))))]
+                                                  (tree-map->alist datum))))]
         [url (ref datum "url" #f)]
         [sha256 (ref datum "sha256" #f)]
         [file_name (ref datum "file_name" #f)]
@@ -23,26 +23,26 @@
         [repo (ref datum "repo" #f)]
         [rev (ref datum "rev" #f)]
         [homepage (or (ref datum "homepage" #f)
-                      (error "\"homepage\" missing:" (hash-table->alist datum)))]
+                      (error "\"homepage\" missing:" (tree-map->alist datum)))]
         [mod-root (ref datum "mod_root" #f)])
     (let-values ([(version rev) (case download-type
                                   [(direct browser)
                                    (if version
                                        (values version #f)
                                        (error "\"version\" missing in direct/browser download:"
-                                              (hash-table->alist datum)))]
+                                              (tree-map->alist datum)))]
                                   [(github)
                                    (cond
                                      [(and version rev)
                                       (values version rev)]
                                      [(and version (not rev))
                                       (error "\"rev\" missing while \"version\" is pinned:"
-                                             (hash-table->alist datum))]
+                                             (tree-map->alist datum))]
                                      [(and owner repo)
                                       (github-get-commit-date owner repo rev)]
                                      [else
                                        (error "\"owner\" and/or \"repo\" missing:"
-                                              (hash-table->alist datum))])]
+                                              (tree-map->alist datum))])]
                                   [else
                                     (error "Unknown download type:" download-type)])])
       (let* ([ext (if url
@@ -55,10 +55,10 @@
                             (if url
                                 (nix-prefetch-url/cache! url :name #"~|mod-name|-~|version|~|ext|")
                                 (error "\"url\" missing in direct download:"
-                                       (hash-table->alist datum)))]
+                                       (tree-map->alist datum)))]
                            [(browser)
                             (error "\"sha256\" missing in browser download:"
-                                   (hash-table->alist datum))]
+                                   (tree-map->alist datum))]
                            [(github)
                             (if (and owner repo rev)
                                 (nix-prefetch-url/cache!
@@ -66,7 +66,7 @@
                                   :unpack? #t
                                   :name #"~|mod-name|-~|version|")
                                 (error "\"owner\", \"repo\", and/or \"rev\" missing:"
-                                       (hash-table->alist datum)))]))]
+                                       (tree-map->alist datum)))]))]
              [lines `(,(let1 class (case class
                                      [(mod) "Mod"]
                                      [(soundpack) "SoundPack"]
@@ -120,7 +120,7 @@
 (define (main _)
   (default-tls-class <mbed-tls>)
   (load-sha256-cache!)
-  (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
+  (parameterize ([json-object-handler (cut alist->tree-map <> string-comparator)])
     (let ([mods (with-input-from-file "mods.json" (cut parse-json))]
           [soundpacks (with-input-from-file "soundpacks.json" (cut parse-json))]
           [tilesets (with-input-from-file "tilesets.json" (cut parse-json))])

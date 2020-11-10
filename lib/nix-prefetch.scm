@@ -15,9 +15,9 @@
 
 (define (load-sha256-cache!)
   (set! %sha256-cache
-        (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
+        (parameterize ([json-object-handler (cut alist->tree-map <> string-comparator)])
           (or (call-with-input-file (sha256-cache-path) parse-json)
-              (make-hash-table 'string=?)))))
+              (make-tree-map string-comparator)))))
 
 (define (write-sha256-cache!)
   (with-output-to-file (sha256-cache-path) (cut construct-json %sha256-cache)))
