@@ -48,7 +48,7 @@
   (load-sha256-cache!)
   (let1 tags (take (%sort-jenkins-tags (github-get-cdda-jenkins-tags))
                    *builds-to-keep*)
-    (with-output-to-file (build-path "./generated" "jenkins.nix")
+    (with-output-to-file (build-path "generated" "jenkins.nix")
                          (cut print (generate-nix-exprs tags))))
   (write-sha256-cache!)
   (exit))
