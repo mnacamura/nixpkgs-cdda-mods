@@ -1,42 +1,30 @@
 self: super:
 
 let
-  inherit (self) lib;
-
-  pkgs' = lib.recursiveUpdate {
-    inherit (super.cataclysmDDA.pkgs) mod soundpack tileset;
-  } {
-    mod = self.callPackage ./generated/mods.nix {};
-    soundpack = self.callPackage ./generated/soundpacks.nix {};
-    tileset = self.callPackage ./generated/tilesets.nix {};
+  pkgs = self.callPackage ./pkgs.nix {
+    oldPkgs = super.cataclysmDDA.pkgs;
   };
 
-  pkgs = lib.makeExtensible (_: pkgs');
+  commonOverrideArgs = {
+  };
 
-  pkgsFor = build:
-  let
-    availablePkgs = lib.mapAttrs (_: mods: lib.filterAttrs (availableFor build) mods) pkgs';
-  in
-  lib.makeExtensible (_: availablePkgs);
-
-  availableFor = build: _: mod:
-  if build.isTiles then
-    mod.forTiles or false
-  else if build.isCurses then
-    mod.forCurses or false
-  else
-    false;
+  commonOverrideAttrsArgs = old: {
+    enableParallelBuilding = true;
+  };
 
   updatePkgs = build:
   let
     this = build.overrideAttrs (old: {
       passthru = old.passthru // {
-        pkgs = pkgsFor this;
+        pkgs = pkgs.override { build = this; };
         withMods = self.cataclysmDDA.wrapCDDA this;
       };
     });
   in
   this;
+
+  applyOverrides = build:
+  updatePkgs ((build.override commonOverrideArgs).overrideAttrs commonOverrideAttrsArgs);
 
   jenkins = self.callPackage ./generated/jenkins.nix {};
 in
@@ -48,27 +36,21 @@ in
     # Required to fix `pkgs` and `withMods` attrs after applying `override` or `overrideAttrs`.
     # Example:
     # let
-    #   myBuild = cataclysmDDA.jenkins.b11152.overrideAttrs (_: {
-    #     enableParallelBuilding = true;
-    #   });
-    # 
-    #   # This refers to the derivation before overriding!
+    #   myBuild = cataclysmDDA.jenkins.b11152.tiles.overrideAttrs (_: {
+    #     x = "hello";
+    #   })
+    #
+    #   # This refers to the derivation before overriding! So, `badExample.x` is not accessible.
     #   badExample = myBuild.withMods (_: []);
     # 
-    #   # This is good. `myBuild` is correctly referred by `withMods`.
+    #   # `myBuild` is correctly referred by `withMods` and `goodExample.x` is accessible.
     #   goodExample = (cataclysmDDA.updatePkgs myBuild).withMods (_: []);
     # in
-    # goodExample
+    # goodExample.x  # returns "hello"
     inherit updatePkgs;
 
-    stable = with super.cataclysmDDA; {
-      tiles = updatePkgs (stable.tiles.overrideAttrs (_: { enableParallelBuilding = true; }));
-      curses = updatePkgs (stable.curses.overrideAttrs (_: { enableParallelBuilding = true; }));
-    };
+    stable = self.lib.mapAttrs (_: applyOverrides) super.cataclysmDDA.stable;
 
-    git = with super.cataclysmDDA; {
-      tiles = updatePkgs (git.tiles.overrideAttrs (_: { enableParallelBuilding = true; }));
-      curses = updatePkgs (git.curses.overrideAttrs (_: { enableParallelBuilding = true; }));
-    };
+    git = self.lib.mapAttrs (_: applyOverrides) super.cataclysmDDA.git;
   };
 }
