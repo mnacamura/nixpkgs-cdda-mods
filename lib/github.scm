@@ -19,12 +19,20 @@
   (let1 req "/repos/CleverRaven/Cataclysm-DDA/git/matching-refs/tags/cdda-jenkins-b"
     (let-values ([(status _ body) (github-get req :accept "application/vnd.github.v3+json")]) 
       (if (string= status "200")
-          (let1 obj (parameterize ([json-object-handler (cut alist->tree-map <> string-comparator)])
-                      (parse-json-string body))
-            (map (^o (alist->tree-map `(("tag" . ,(~ o "ref"))
-                                        ("rev" . ,(~ o "object" "sha")))
-                                      string-comparator))
-                 obj))
+          (let ([obj (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
+                       (parse-json-string body))]
+                [tbl (make-tree-map
+                       (make-comparator #t
+                                        string=
+                                        (^[l r]
+                                          (> (x->integer (rxmatch-substring (#/\d+/ l)))
+                                             (x->integer (rxmatch-substring (#/\d+/ r)))))
+                                        #f))])
+            (for-each (^e (tree-map-put! tbl
+                                         (rxmatch-substring (#/cdda-jenkins-b\d+/ (~ e "ref")))
+                                         (~ e "object" "sha")))
+                      obj)
+            tbl)
           (error #"Failed to get github cdda jenkins tags:" body)))))
 
 (define (github-get-commit-date owner repo :optional (rev #f))
@@ -32,7 +40,7 @@
         [req #"/repos/~|owner|/~|repo|/commits/~|rev|"])
     (let-values ([(status _ body) (github-get req :accept "application/vnd.github.v3+json")])
       (if (string= status "200")
-          (let1 obj (parameterize ([json-object-handler (cut alist->tree-map <> string-comparator)])
+          (let1 obj (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
                       (parse-json-string body))
             (values (rxmatch-substring (#/^\d{4}-\d{2}-\d{2}/ (~ obj "commit" "committer" "date")))
                     (~ obj "sha")))
