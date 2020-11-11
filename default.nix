@@ -6,9 +6,9 @@ let
   pkgs' = lib.recursiveUpdate {
     inherit (super.cataclysmDDA.pkgs) mod soundpack tileset;
   } {
-    mod = super.callPackage ./generated/mods.nix {};
-    soundpack = super.callPackage ./generated/soundpacks.nix {};
-    tileset = super.callPackage ./generated/tilesets.nix {};
+    mod = self.callPackage ./generated/mods.nix {};
+    soundpack = self.callPackage ./generated/soundpacks.nix {};
+    tileset = self.callPackage ./generated/tilesets.nix {};
   };
 
   pkgs = lib.makeExtensible (_: pkgs');
