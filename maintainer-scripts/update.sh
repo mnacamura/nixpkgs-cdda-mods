@@ -50,6 +50,12 @@ if [ "$create_commit" = no -a "$deploy_update" = yes ]; then
     err "Are you sure to deploy update without creating any commit?"
 fi
 
+work_dir="$(git rev-parse --show-toplevel)"
+if ! [ "$(pwd)" = "$work_dir" ]; then
+    msg "Change working directory to $work_dir"
+    cd "$work_dir"
+fi
+
 msg "Checking out upstream changes..."
 if ! git pull "$remote_name" "$remote_branch"; then
     err "...failed"
