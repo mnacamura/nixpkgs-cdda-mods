@@ -1,7 +1,7 @@
 self: super:
 
 let
-  pkgs = self.callPackage ./pkgs.nix {
+  pkgs = self.callPackage ./pkgs {
     oldPkgs = super.cataclysmDDA.pkgs;
   };
 

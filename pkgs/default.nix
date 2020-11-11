@@ -4,9 +4,9 @@ let
   pkgs = lib.recursiveUpdate {
     inherit (oldPkgs) mod soundpack tileset;
   } {
-    mod = callPackage ./generated/mods.nix {};
-    soundpack = callPackage ./generated/soundpacks.nix {};
-    tileset = callPackage ./generated/tilesets.nix {};
+    mod = callPackage ./mods.nix {};
+    soundpack = callPackage ./soundpacks.nix {};
+    tileset = callPackage ./tilesets.nix {};
   };
 
   pkgs' = lib.mapAttrs (_: mods: lib.filterAttrs isAvailable mods) pkgs;

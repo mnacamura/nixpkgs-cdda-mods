@@ -121,14 +121,17 @@
   (default-tls-class <mbed-tls>)
   (load-sha256-cache!)
   (parameterize ([json-object-handler (cut alist->tree-map <> string-comparator)])
-    (let ([mods (with-input-from-file "mods.json" (cut parse-json))]
-          [soundpacks (with-input-from-file "soundpacks.json" (cut parse-json))]
-          [tilesets (with-input-from-file "tilesets.json" (cut parse-json))])
-      (with-output-to-file (build-path "generated" "mods.nix")
+    (let ([mods (with-input-from-file (build-path "data" "mods.json")
+                                      (cut parse-json))]
+          [soundpacks (with-input-from-file (build-path "data" "soundpacks.json")
+                                            (cut parse-json))]
+          [tilesets (with-input-from-file (build-path "data" "tilesets.json")
+                                          (cut parse-json))])
+      (with-output-to-file (build-path "pkgs" "mods.nix")
                            (cut print (generate-nix-exprs 'mod mods)))
-      (with-output-to-file (build-path "generated" "soundpacks.nix")
+      (with-output-to-file (build-path "pkgs" "soundpacks.nix")
                            (cut print (generate-nix-exprs 'soundpack soundpacks)))
-      (with-output-to-file (build-path "generated" "tilesets.nix")
+      (with-output-to-file (build-path "pkgs" "tilesets.nix")
                            (cut print (generate-nix-exprs 'tileset tilesets)))))
   (save-sha256-cache!)
   (exit))

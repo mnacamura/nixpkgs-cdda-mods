@@ -57,18 +57,18 @@ fi
 msg "...done"
 
 msg "Updating jenkins builds..."
-if ! ./update-jenkins.scm; then
+if ! ./maintainer-scripts/update-jenkins.scm; then
     err "...failed"
 fi
 msg "...done"
 
 msg "Updating mods..."
-if ! ./update-mods.scm; then
+if ! ./maintainer-scripts/update-mods.scm; then
     err "...failed"
 fi
 msg "...done"
 
-if [ "$(git diff ./generated .sha256-cache.json | wc -l)" -eq 0 ]; then
+if [ "$(git diff ./pkgs/{mods,soundpacks,tilesets}.nix .sha256-cache.json | wc -l)" -eq 0 ]; then
     msg "No updates found"
     exit 0
 else
@@ -77,7 +77,7 @@ fi
 
 if [ "$create_commit" = yes ]; then
     msg "Staging the updates..."
-    if ! git add ./generated .sha256-cache.json; then
+    if ! git add ./pkgs/{mods,soundpacks,tilesets}.nix .sha256-cache.json; then
         err "...failed"
     fi
     msg "...done"
