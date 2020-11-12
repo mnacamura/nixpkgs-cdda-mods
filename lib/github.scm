@@ -19,20 +19,16 @@
   (let1 req "/repos/CleverRaven/Cataclysm-DDA/git/matching-refs/tags/cdda-jenkins-b"
     (let-values ([(status _ body) (github-get req :accept "application/vnd.github.v3+json")]) 
       (if (string= status "200")
-          (let ([obj (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
-                       (parse-json-string body))]
-                [tbl (make-tree-map
-                       (make-comparator #t
-                                        string=
-                                        (^[l r]
-                                          (> (x->integer (rxmatch-substring (#/\d+/ l)))
-                                             (x->integer (rxmatch-substring (#/\d+/ r)))))
-                                        #f))])
-            (for-each (^e (tree-map-put! tbl
-                                         (rxmatch-substring (#/cdda-jenkins-b\d+/ (~ e "ref")))
-                                         (~ e "object" "sha")))
-                      obj)
-            tbl)
+          (let ([coll (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
+                        (parse-json-string body))]
+                [tmap (let1 build-number> (^[l r] (> (x->integer (rxmatch-substring (#/\d+/ l)))
+                                                     (x->integer (rxmatch-substring (#/\d+/ r)))))
+                        (make-tree-map (make-comparator #t string= build-number> #f)))]
+                [basename (.$ rxmatch-substring #/[^\/]+$/)])
+            (fold (^[item tmap]
+                    (tree-map-put! tmap (basename (~ item "ref")) (~ item "object" "sha"))
+                    tmap)
+                  tmap coll))
           (error #"Failed to get github cdda jenkins tags:" body)))))
 
 (define (github-get-commit-date owner repo :optional (rev #f))
@@ -40,8 +36,9 @@
         [req #"/repos/~|owner|/~|repo|/commits/~|rev|"])
     (let-values ([(status _ body) (github-get req :accept "application/vnd.github.v3+json")])
       (if (string= status "200")
-          (let1 obj (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
-                      (parse-json-string body))
-            (values (rxmatch-substring (#/^\d{4}-\d{2}-\d{2}/ (~ obj "commit" "committer" "date")))
+          (let ([obj (parameterize ([json-object-handler (cut alist->hash-table <> 'string=?)])
+                       (parse-json-string body))]
+                [yyyy-mm-dd (.$ rxmatch-substring #/^\d{4}-\d{2}-\d{2}/)])
+            (values (yyyy-mm-dd (~ obj "commit" "committer" "date"))
                     (~ obj "sha")))
           (error #"Failed to get github commit date for ~|owner|/~|repo|:" body)))))
