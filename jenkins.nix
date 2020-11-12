@@ -10,8 +10,8 @@ rec {
       sha256 = "1a2yag165y9ab34vzixyllmkyqbkf4dfqd8bhwgpjl2rcib62sx2";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11155 = let
     args = {
@@ -20,8 +20,8 @@ rec {
       sha256 = "0n24w2w7fip5jchqfcsrkn34bp1i619vczpg8qmbv2ywzkpd3qh4";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11154 = let
     args = {
@@ -30,8 +30,8 @@ rec {
       sha256 = "1m0q7dbkyddrxxs4laj1nna1vfzadamb7jnmgd121vmm9zp4m2xf";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11153 = let
     args = {
@@ -40,8 +40,8 @@ rec {
       sha256 = "1pk32x38pfrf7x7syy6s5cimb97ydr782hayv70n5flwwbbilv0g";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11152 = let
     args = {
@@ -50,8 +50,8 @@ rec {
       sha256 = "1bclnjh9l14wyfkh1fs0hmfas32arkirqmd81wnvqsy9djhzi9n3";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11151 = let
     args = {
@@ -60,8 +60,8 @@ rec {
       sha256 = "061lgfykknvyrzc1hhjy78i32wqwn21fgdwrasx1hwh8h8qs8hi2";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11150 = let
     args = {
@@ -70,8 +70,8 @@ rec {
       sha256 = "0km9gdxb45kslp672syhzhnnl4yh16lvijzyqvappkgshc3g3wmk";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11149 = let
     args = {
@@ -80,8 +80,8 @@ rec {
       sha256 = "0c9n6ghh4yjma9n4lh7608g4df2kpspv04gync38cb6lpjdfnfjg";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11147 = let
     args = {
@@ -90,8 +90,8 @@ rec {
       sha256 = "1ibq4sf193iy4wls74zibd2n9zk3zqarnfja9lymm3nb3ynbbn2d";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11146 = let
     args = {
@@ -100,8 +100,8 @@ rec {
       sha256 = "04hlycla5k00karqf62rya5hjy0yncr4azlrpw9diyia2l9n6ixq";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11145 = let
     args = {
@@ -110,8 +110,8 @@ rec {
       sha256 = "0bd0si1pmmzjcp45kndwal29v88xwcnd3lqxisbr4k6c0snqxr1g";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11144 = let
     args = {
@@ -120,8 +120,8 @@ rec {
       sha256 = "1g5cmqn2dlgv7y7b816vbp3k6c9gp4d4k6qlhy6kqvgn2kssprc0";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11143 = let
     args = {
@@ -130,8 +130,8 @@ rec {
       sha256 = "17c4qxrbncq5jzyff0azk7kxrmvdsznmc5f7kdq5y0di6bjb8514";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11142 = let
     args = {
@@ -140,8 +140,8 @@ rec {
       sha256 = "0p9c8403jlg0z3cc35mpr4399j9pfpky2qlwghvgf4jqjgjyxygg";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11141 = let
     args = {
@@ -150,8 +150,8 @@ rec {
       sha256 = "0ybh3vvsxv7yfk40cpcrp2drwgyph7mdijlmkplxy80j3q78bw6v";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11140 = let
     args = {
@@ -160,8 +160,8 @@ rec {
       sha256 = "1y53nj1531l6zwjk3c4sjcb8kh0hwsqasl0w3ifhmw0ijdbza9nx";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11139 = let
     args = {
@@ -170,8 +170,8 @@ rec {
       sha256 = "19ppy2ild5rk79v5zwdlgvl36k6d8byim15ahyqvvq84hjz4gch2";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11138 = let
     args = {
@@ -180,8 +180,8 @@ rec {
       sha256 = "1n2g6843856yv8sslhia6074pdmdwjpprxna0mp6php7wa5kkpkv";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11137 = let
     args = {
@@ -190,8 +190,8 @@ rec {
       sha256 = "1qhi65fd76l0j6asyaakyr55qpvxm57rnr186bmhs8s9q574cxvw";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11136 = let
     args = {
@@ -200,8 +200,8 @@ rec {
       sha256 = "0rbzm26kdmy7994n1sb527q7gmrm9i642gnrma3367rky6av3nc1";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11135 = let
     args = {
@@ -210,8 +210,8 @@ rec {
       sha256 = "189051v05mpxzjw89dvhkh3mkkvqm33y8zh4dv8jlbi498d35m00";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11134 = let
     args = {
@@ -220,8 +220,8 @@ rec {
       sha256 = "082q0slvg1zf45qipzcx72445rlgyx2a29z4gyfs72kbnlvryylf";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11133 = let
     args = {
@@ -230,8 +230,8 @@ rec {
       sha256 = "16zm6lgjx50gxzf6hrdx9s1lxii5xcxb5pn79qasrlwghfn6yihk";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11132 = let
     args = {
@@ -240,8 +240,8 @@ rec {
       sha256 = "1564zy0wad1jp1pcnlksi5bg4y31p6lnxbbv6lwcj2aqabsip7ci";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11131 = let
     args = {
@@ -250,8 +250,8 @@ rec {
       sha256 = "0wp96z31dv4zx49rpcj0mg40qqyx4rqvks3mqsiv9wbkb1q0hdw0";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11130 = let
     args = {
@@ -260,8 +260,8 @@ rec {
       sha256 = "0byhpnh8xsq9v8gzw4246zvxhjv2b40cx1kq54n7l2d52hciin4x";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11129 = let
     args = {
@@ -270,8 +270,8 @@ rec {
       sha256 = "1nr4hki5yla4jkvs6b08cazqlimkcdl6dd26y7yln2zydinq4p5l";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11128 = let
     args = {
@@ -280,8 +280,8 @@ rec {
       sha256 = "0dj3wr8kf81lzbzrcgnn7l9yjhzh2gbgwjk2a4nc2gybfkz35j0s";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11127 = let
     args = {
@@ -290,8 +290,8 @@ rec {
       sha256 = "13s4vxfr5f63zm95kpn9x2fz3bmh43l9ryksk546k2l8367ang6f";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11126 = let
     args = {
@@ -300,8 +300,8 @@ rec {
       sha256 = "0fkf2glanlqa6a8sx7qkain55ywi0ccnjm2hq2pi6ysk0fkxi92c";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11125 = let
     args = {
@@ -310,8 +310,8 @@ rec {
       sha256 = "05rqlqr2q007ydsd96lxs8ghcjys549n8sllfskydz1x3fr4765s";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11124 = let
     args = {
@@ -320,8 +320,8 @@ rec {
       sha256 = "0f3bim07iqd18i7irkjvnq6sqywz5dsfdliy0q3fqzk16z7x7k0c";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11123 = let
     args = {
@@ -330,8 +330,8 @@ rec {
       sha256 = "0m0rni8bx8njqzi21fna3lwvmjknkds8c869xb5djbm4is1wzam7";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11122 = let
     args = {
@@ -340,8 +340,8 @@ rec {
       sha256 = "11raphii0qgbgmjz6r0hazh3dydfjass5hk0gy4zfrfjw4xcg30z";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11121 = let
     args = {
@@ -350,8 +350,8 @@ rec {
       sha256 = "0wc9vac2h0gamzn3a9ggrmq3qqrsw5zd2fxmqz8p1vg2h47gjifh";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11120 = let
     args = {
@@ -360,8 +360,8 @@ rec {
       sha256 = "0f6lxpcjpdgyg6jw42c1ci1nm47vid9l51hvz096ki3dlnmfdhr8";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11119 = let
     args = {
@@ -370,8 +370,8 @@ rec {
       sha256 = "00rmj63zhxg9kfyhxffjn2px6r0chwal4nghn4pafwlpyal2720q";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11118 = let
     args = {
@@ -380,8 +380,8 @@ rec {
       sha256 = "17yqdb9d4d55rqhvi5czrymppb67gdx4mfwf8vf5q8y93ya07j9s";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11117 = let
     args = {
@@ -390,8 +390,8 @@ rec {
       sha256 = "0n1rcqvqkcn03h511ldg7giya2lzyrv8qa159iivjhkk54668f29";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11116 = let
     args = {
@@ -400,8 +400,8 @@ rec {
       sha256 = "0l0wp0gb2ag3ysr9m9pzc0indqyw8fswmpwcnpynk3ns9735v40n";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11115 = let
     args = {
@@ -410,8 +410,8 @@ rec {
       sha256 = "1ckg97zz82psppjnjbrimayqg6k8zdvb909h2i2wa8ds05gw5yfc";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11114 = let
     args = {
@@ -420,8 +420,8 @@ rec {
       sha256 = "0qagzx60mi820cbmn8f4s89xvlcrw3ngzp60ws2y7f6r1cna8cv8";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11113 = let
     args = {
@@ -430,8 +430,8 @@ rec {
       sha256 = "0ax0gg4bgig94rc90hhcd39h5x6x2yvyj39wv23bi6rpfajcam8r";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11112 = let
     args = {
@@ -440,8 +440,8 @@ rec {
       sha256 = "0zfpsfibknkmnyb6g7fffbswx0m174k1jl9vyhnihkss157glhmk";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11111 = let
     args = {
@@ -450,8 +450,8 @@ rec {
       sha256 = "18m7rsrqxfp4fa7jadbrh7f0szjmrp016ws6zil8dj6zrfc31f6v";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11110 = let
     args = {
@@ -460,8 +460,8 @@ rec {
       sha256 = "0m6fabgzfa7cl4psx3gx2y3k0npygcps4h0di9gvnvc3bkhnp74g";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11109 = let
     args = {
@@ -470,8 +470,8 @@ rec {
       sha256 = "1lqa1x6ikykhqnwmh282r6szf3mkpfsbmgg4pxxymnj17pdabd1h";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11108 = let
     args = {
@@ -480,8 +480,8 @@ rec {
       sha256 = "1iiiy1a4ai6n7kvpwajpxdzfq86ny75skls4xz19qa7v5lalhd4d";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11107 = let
     args = {
@@ -490,8 +490,8 @@ rec {
       sha256 = "1hjc1a7xai60w87s53rpyz3nyrs6w5p3x456lqbhgvy3lcfmf8dy";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11106 = let
     args = {
@@ -500,8 +500,8 @@ rec {
       sha256 = "0mkx7n5z1k129jhpr090b6vpf31i2ihyzj1mzm1xlsl11f11r55d";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11105 = let
     args = {
@@ -510,8 +510,8 @@ rec {
       sha256 = "0a1j1mh2b6xbbns5k07afp4m6hdclrv3ghlx11qd6dgjpp62f5gn";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11104 = let
     args = {
@@ -520,8 +520,8 @@ rec {
       sha256 = "16fi3hrrmzkxk9z0qjhjga3s2mky1i6vmy5xgilmsc2dw3ab87p6";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11103 = let
     args = {
@@ -530,8 +530,8 @@ rec {
       sha256 = "1s0parl5r1h8dlx7pn9ysvhqkjhz2jbwv3qxgjlbffaq66hpwfab";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11102 = let
     args = {
@@ -540,8 +540,8 @@ rec {
       sha256 = "1pk8q1cv4wvh75f178kc316vsxjziksvrxszh2qw52yyb9lglcnq";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11101 = let
     args = {
@@ -550,8 +550,8 @@ rec {
       sha256 = "10wkrwh36i5dqc3fz6ajmmsddfqb6mclv1d67w67mwj5l4698bzj";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11100 = let
     args = {
@@ -560,8 +560,8 @@ rec {
       sha256 = "10wkrwh36i5dqc3fz6ajmmsddfqb6mclv1d67w67mwj5l4698bzj";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11099 = let
     args = {
@@ -570,8 +570,8 @@ rec {
       sha256 = "11r5gsr1pnqbsgx9qjkcn15pak6v5ykbmzsj977bjz52p8n0n78n";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11098 = let
     args = {
@@ -580,8 +580,8 @@ rec {
       sha256 = "0gk3ks593pqwiv9yhb61a8szvgby1ahpwh6yalghbg8bz4vps2w5";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11097 = let
     args = {
@@ -590,8 +590,8 @@ rec {
       sha256 = "0xl48dn61nh7dk2chp1gzknzb3xs9ch6fxw4af4ls5sgg1q9kzc4";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
   b11096 = let
     args = {
@@ -600,7 +600,7 @@ rec {
       sha256 = "1rjm9sc89kq2brmfv18h5qrvgk92yr07i5n6jdkl1y3rbrnr9hp2";
     };
   in {
-    tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);
-    curses = with cataclysmDDA; updatePkgs (git.curses.override args);
+    tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);
+    curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);
   };
 }

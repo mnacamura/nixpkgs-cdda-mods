@@ -12,7 +12,7 @@ let
     enableParallelBuilding = true;
   };
 
-  updatePkgs = build:
+  attachPkgs = pkgs: build:
   let
     this = build.overrideAttrs (old: {
       passthru = old.passthru // {
@@ -24,9 +24,10 @@ let
   this;
 
   applyOverrides = build:
-  updatePkgs ((build.override commonOverrideArgs).overrideAttrs commonOverrideAttrsArgs);
+  with self.cataclysmDDA;
+  attachPkgs pkgs ((build.override commonOverrideArgs).overrideAttrs commonOverrideAttrsArgs);
 
-  jenkins = self.callPackage ./generated/jenkins.nix {};
+  jenkins = self.callPackage ./jenkins.nix {};
 in
 
 {
@@ -36,18 +37,21 @@ in
     # Required to fix `pkgs` and `withMods` attrs after applying `override` or `overrideAttrs`.
     # Example:
     # let
-    #   myBuild = cataclysmDDA.jenkins.b11152.tiles.overrideAttrs (_: {
+    #   myBuild = cataclysmDDA.jenkins.latest.tiles.overrideAttrs (_: {
     #     x = "hello";
-    #   })
+    #   });
     #
     #   # This refers to the derivation before overriding! So, `badExample.x` is not accessible.
     #   badExample = myBuild.withMods (_: []);
     # 
     #   # `myBuild` is correctly referred by `withMods` and `goodExample.x` is accessible.
-    #   goodExample = (cataclysmDDA.updatePkgs myBuild).withMods (_: []);
+    #   goodExample = let
+    #     inherit (cataclysmDDA) attachPkgs pkgs;
+    #   in
+    #   (attachPkgs pkgs myBuild).withMods (_: []);
     # in
     # goodExample.x  # returns "hello"
-    inherit updatePkgs;
+    inherit attachPkgs;
 
     stable = self.lib.mapAttrs (_: applyOverrides) super.cataclysmDDA.stable;
 

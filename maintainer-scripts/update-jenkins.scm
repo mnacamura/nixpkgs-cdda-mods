@@ -26,8 +26,8 @@
                   ,#"    sha256 = \"~|sha256|\";"
                   "  };"
                   "in {"
-                  "  tiles = with cataclysmDDA; updatePkgs (git.tiles.override args);"
-                  "  curses = with cataclysmDDA; updatePkgs (git.curses.override args);"
+                  "  tiles = with cataclysmDDA; attachPkgs pkgs (git.tiles.override args);"
+                  "  curses = with cataclysmDDA; attachPkgs pkgs (git.curses.override args);"
                   "};")])
     (string-join (map (pa$ string-append (make-string indent #\ )) lines) "\n")))
 
