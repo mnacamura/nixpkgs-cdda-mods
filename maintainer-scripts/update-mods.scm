@@ -107,7 +107,8 @@
                       ,#"    homepage = \"~|homepage|\";"
                       "  };"
                       "};")])
-        (string-join (map (pa$ string-append (make-string indent #\ )) lines) "\n")))))
+        (string-join (map (pa$ string-append (make-string indent #\ )) lines)
+                     "\n")))))
 
 (define (generate-nix-exprs class data)
   (let1 data (remove (cut ref <> "ignore" #f) data)
