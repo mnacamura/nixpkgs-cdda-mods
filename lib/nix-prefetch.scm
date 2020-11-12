@@ -25,7 +25,11 @@
               (make-tree-map string-comparator)))))
 
 (define (save-sha256-cache!)
-  (with-output-to-file (sha256-cache-path) (cut construct-json %sha256-cache)))
+  (call-with-output-file (sha256-cache-path)
+                         (^[out]
+                           (with-output-to-process '(jq)
+                                                   (cut construct-json %sha256-cache)
+                                                   :output out))))
 
 (define (nix-prefetch-url/cache! url :key (unpack? #f) (name #f))
   (or (ref %sha256-cache url #f)

@@ -14,7 +14,7 @@ in
 with import nixpkgs {};
 
 mkShell {
-  buildInputs = [ gauche git ];
+  buildInputs = [ gauche git jq ];
 
   GAUCHE_LOAD_PATH = "./lib";
 }
