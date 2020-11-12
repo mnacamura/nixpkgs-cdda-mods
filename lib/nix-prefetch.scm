@@ -14,22 +14,26 @@
 (define nix-prefetch-url-path
   (make-parameter (build-path "/" "run" "current-system" "sw" "bin" "nix-prefetch-url")))
 
-(define sha256-cache-path (make-parameter ".sha256-cache.json"))
+(define sha256-cache-path
+  (make-parameter (build-path ".sha256-cache.json")))
 
 (define %sha256-cache)
 
 (define (load-sha256-cache!)
   (set! %sha256-cache
-        (parameterize ([json-object-handler (cut alist->tree-map <> string-comparator)])
-          (or (call-with-input-file (sha256-cache-path) parse-json)
+        (if (file-exists? (sha256-cache-path))
+            (parameterize ([json-object-handler (cut alist->tree-map <> string-comparator)])
+              (call-with-input-file (sha256-cache-path) parse-json))
+            (begin
+              (with-output-to-port (standard-error-port)
+                                   (cut print "sha256 cache not found: " (sha256-cache-path)))
               (make-tree-map string-comparator)))))
 
 (define (save-sha256-cache!)
   (call-with-output-file (sha256-cache-path)
-                         (^[out]
-                           (with-output-to-process '(jq)
-                                                   (cut construct-json %sha256-cache)
-                                                   :output out))))
+                         (cut with-output-to-process '(jq)
+                                                     (cut construct-json %sha256-cache)
+                                                     :output <>)))
 
 (define (nix-prefetch-url/cache! url :key (unpack? #f) (name #f))
   (or (ref %sha256-cache url #f)
