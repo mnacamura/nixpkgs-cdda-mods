@@ -10,10 +10,10 @@
 
 (select-module github)
 
-(define (github-get req
-                    :key (token (sys-getenv "GITHUB_TOKEN")) :allow-other-keys
-                    :rest args)
-  (apply http-get `("api.github.com" ,req :authorization #"token ~|token|" ,@args)))
+(define (github-get req :key (token (sys-getenv "GITHUB_TOKEN")) :allow-other-keys :rest args)
+  (if token
+      (apply http-get `("api.github.com" ,req :authorization ,#"token ~|token|" ,@args))
+      (error "Please set GITHUB_TOKEN to your github access token")))
 
 (define (github-get-cdda-jenkins-tags)
   (let1 req "/repos/CleverRaven/Cataclysm-DDA/git/matching-refs/tags/cdda-jenkins-b"
