@@ -6,6 +6,12 @@ remote_name=github
 remote_branch=master
 commit_msg="Automatic overlay update"
 
+target_files=(
+    ./jenkins.nix
+    ./pkgs/{mods,soundpacks,tilesets}.nix
+    .sha256-cache.json
+)
+
 create_commit=yes
 deploy_update=no
 
@@ -74,7 +80,7 @@ if ! ./maintainer-scripts/update-mods.scm; then
 fi
 msg "...done"
 
-if [ "$(git diff ./pkgs/{mods,soundpacks,tilesets}.nix .sha256-cache.json | wc -l)" -eq 0 ]; then
+if [ "$(git diff "${target_files[@]}" | wc -l)" -eq 0 ]; then
     msg "No updates found"
     exit 0
 else
@@ -83,7 +89,7 @@ fi
 
 if [ "$create_commit" = yes ]; then
     msg "Staging the updates..."
-    if ! git add ./pkgs/{mods,soundpacks,tilesets}.nix .sha256-cache.json; then
+    if ! git add "${target_files[@]}"; then
         err "...failed"
     fi
     msg "...done"
