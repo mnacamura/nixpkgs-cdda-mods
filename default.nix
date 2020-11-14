@@ -57,4 +57,12 @@ in
 
     git = self.lib.mapAttrs (_: applyOverrides) super.cataclysmDDA.git;
   };
+
+  cataclysmBN = {
+    inherit pkgs attachPkgs;
+
+    release = self.callPackage ./cataclysm-bn.nix {
+      common = self.callPackage ./cbn-common.nix {};
+    };
+  };
 }

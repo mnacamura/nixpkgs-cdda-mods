@@ -92,6 +92,21 @@ cataclysmDDA.jenkins.b11150.tiles
 Note that these builds have no pre-built binaries. You need to compile them by
 yourself on your machine.
 
+### Cataclysm: Bright Nights
+
+Cataclysm: Bright Nights, a fork of Cataclysm: DDA, is available at
+
+```nix
+# Latest tiles build
+cataclysmBN.release.latest.tiles
+
+# Latest curses build
+cataclysmBN.release.latest.curses
+
+# Older releases are also supported. For example, release 891:
+cataclysmBN.release.b891.tiles
+```
+
 ## Development status
 
 As of now, the following mods, soundpacks, and tilesets are available. If you

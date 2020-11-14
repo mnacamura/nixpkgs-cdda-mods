@@ -9,6 +9,7 @@ commit_msg="Automatic overlay update"
 target_files=(
     ./jenkins.nix
     ./pkgs/{mods,soundpacks,tilesets}.nix
+    ./cataclysm-bn.nix
     .sha256-cache.json
 )
 
@@ -76,6 +77,12 @@ msg "...done"
 
 msg "Updating mods..."
 if ! ./maintainer-scripts/update-mods.scm; then
+    err "...failed"
+fi
+msg "...done"
+
+msg "Updating bright nights..."
+if ! ./maintainer-scripts/update-cbn.scm; then
     err "...failed"
 fi
 msg "...done"
