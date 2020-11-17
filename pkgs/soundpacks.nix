@@ -84,12 +84,12 @@
   };
   Otopack = cataclysmDDA.buildSoundPack {
     modName = "Otopack";
-    version = "2020-11-16";
+    version = "2020-11-17";
     src = fetchFromGitHub {
       owner = "Kenan2000";
       repo = "Otopack-Mods-Updates";
-      rev = "8dc8f26596a832f097164b3c052cace5d0bbfaf6";
-      sha256 = "0d8ajwh0yzfr927pbs9cm9fd32x6yl63smyqfakindbg5zhb3804";
+      rev = "0ac1d028aa917274b87c170cb4ba8d76918a4071";
+      sha256 = "0dpv3ibh9hczm9zy5r1c2jl25vbzhnasbjf1nrrwlbi47akcw6zv";
     };
     modRoot = "Otopack+ModsUpdates";
     meta = with lib; {
