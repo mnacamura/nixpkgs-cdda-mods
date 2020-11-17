@@ -88,8 +88,8 @@
     src = fetchFromGitHub {
       owner = "Kenan2000";
       repo = "Otopack-Mods-Updates";
-      rev = "0ac1d028aa917274b87c170cb4ba8d76918a4071";
-      sha256 = "0dpv3ibh9hczm9zy5r1c2jl25vbzhnasbjf1nrrwlbi47akcw6zv";
+      rev = "541021302b80af369e82f4df0931cb9f0f9cd5f0";
+      sha256 = "13hy6ggzp5025wxxvmmazdy3d78fix7xja39im8y77lg2vfcgkk6";
     };
     modRoot = "Otopack+ModsUpdates";
     meta = with lib; {
