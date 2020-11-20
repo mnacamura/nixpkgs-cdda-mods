@@ -21,8 +21,8 @@
     src = fetchFromGitHub {
       owner = "Noctifer-de-Mortem";
       repo = "nocts_cata_mod";
-      rev = "7a3cb8945caf9616736e3a15f98ac7e24bc1b2a4";
-      sha256 = "17c00np6jdpbbysg6gdiqxpnkyj0nm6my3z0jf8y94cp461qhzxc";
+      rev = "3e181a73dd41158dd32f6dc737e8a2f75616260f";
+      sha256 = "13bhh959rshbyw8qziib2k17h1f6i750r83yxpby19va17lx4rrm";
     };
     meta = with lib; {
       homepage = "https://discourse.cataclysmdda.org/t/cataclysm-mod/10523";
