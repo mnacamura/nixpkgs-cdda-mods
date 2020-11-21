@@ -4,12 +4,12 @@
 {
   UndeadPeople = cataclysmDDA.buildTileSet {
     modName = "UndeadPeople";
-    version = "2020-11-20";
+    version = "2020-11-21";
     src = fetchFromGitHub {
       owner = "SomeDeadGuy";
       repo = "UndeadPeopleTileset";
-      rev = "d1427d893ee54b4fd739ca6e6b76a3c8353e3be2";
-      sha256 = "0pkbyr824iiwrqrwd6x4n0w8kjzyx61qn3c5fjiwd9mc2pf1yh7y";
+      rev = "d062e16bd6fa5306279091933cd622512998e716";
+      sha256 = "1b0dqk8yf58jb7xxn7bnrlnwrhd2ypqw6yj9nbn3akbcby0j107y";
     };
     modRoot = "MSX++UnDeadPeopleEdition";
     meta = with lib; {

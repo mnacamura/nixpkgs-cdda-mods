@@ -2,7 +2,17 @@
 { cataclysmDDA }:
 
 rec {
-  latest = b11177;
+  latest = b11178;
+  b11178 = let
+    args = {
+      version = "jenkins-b11178";
+      rev = "c6324c0ec70a9a9745db8a6a675371afd7d91e2f";
+      sha256 = "062rc69r8wg3rpdcmzz9ykbv7lwcp4vx00wwa3xbfjrc3qjvqbdw";
+    };
+  in with cataclysmDDA; {
+    tiles = attachPkgs pkgs (git.tiles.override args);
+    curses = attachPkgs pkgs (git.curses.override args);
+  };
   b11177 = let
     args = {
       version = "jenkins-b11177";
@@ -588,16 +598,6 @@ rec {
       version = "jenkins-b11118";
       rev = "00daf3ad7a444b08a558a0b0f1f3d292da433247";
       sha256 = "17yqdb9d4d55rqhvi5czrymppb67gdx4mfwf8vf5q8y93ya07j9s";
-    };
-  in with cataclysmDDA; {
-    tiles = attachPkgs pkgs (git.tiles.override args);
-    curses = attachPkgs pkgs (git.curses.override args);
-  };
-  b11117 = let
-    args = {
-      version = "jenkins-b11117";
-      rev = "db7d1378fa53326111c08c5fd9d2a336c779bf95";
-      sha256 = "0n1rcqvqkcn03h511ldg7giya2lzyrv8qa159iivjhkk54668f29";
     };
   in with cataclysmDDA; {
     tiles = attachPkgs pkgs (git.tiles.override args);
