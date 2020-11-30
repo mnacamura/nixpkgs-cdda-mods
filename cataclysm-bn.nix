@@ -2,7 +2,17 @@
 { cataclysmBN, common }:
 
 rec {
-  latest = b972;
+  latest = b993;
+  b993 = let
+    args = {
+      version = "993";
+      rev = "ec9d549929680ef655faa13e668c6168ac299810";
+      sha256 = "19vp9gdkkpjzdydwbpj7vj8agdfa28wcv12rb5zgrd6kxw8j3w0k";
+    };
+  in with cataclysmBN; {
+    tiles = attachPkgs pkgs (common.tiles.override args);
+    curses = attachPkgs pkgs (common.curses.override args);
+  };
   b972 = let
     args = {
       version = "972";
@@ -588,16 +598,6 @@ rec {
       version = "525";
       rev = "d64ab1e006d04980449c0928df7aac040668b0d5";
       sha256 = "1ckmsca1f0qvsw1ja7m4l91x5m1a5k7asq8hv1szkyi9f08pyybr";
-    };
-  in with cataclysmBN; {
-    tiles = attachPkgs pkgs (common.tiles.override args);
-    curses = attachPkgs pkgs (common.curses.override args);
-  };
-  b524 = let
-    args = {
-      version = "524";
-      rev = "5d6b9d30ed3073ecc29c33c6b9029f568f943607";
-      sha256 = "1728c31b6x0sj83zrjhnfnndz6yg7biib9rj6q8cfwppr1n69ypb";
     };
   in with cataclysmBN; {
     tiles = attachPkgs pkgs (common.tiles.override args);
