@@ -17,12 +17,12 @@
   };
   CataclysmPlusPlus = cataclysmDDA.buildMod {
     modName = "CataclysmPlusPlus";
-    version = "2020-11-29";
+    version = "2020-12-01";
     src = fetchFromGitHub {
       owner = "Noctifer-de-Mortem";
       repo = "nocts_cata_mod";
-      rev = "c2d025213ccb3a0d543f6f2409dd6f77359a1faf";
-      sha256 = "0znbcafa8cg4x2j5035zc2hla84jgmk4hdx44k0m8898r8y07wkr";
+      rev = "66314b28e1788d5055fa00e04a0724383af00b63";
+      sha256 = "0mv79chn0lwl09r0z9s5w8f1hn6wn119c4ihfib9yj04x0f7wayz";
     };
     meta = with lib; {
       homepage = "https://discourse.cataclysmdda.org/t/cataclysm-mod/10523";
